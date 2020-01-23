@@ -53,12 +53,65 @@ def convert(digits, base1, base2):
     assert 2 <= base2 <= 36, 'base2 is out of range: {}'.format(base2)
     # TODO: Convert digits from base 2 to base 16 (and vice versa)
     # ...
+    print(len(digits))
+    digitsC = list(digits)
+    print(digitsC)
+    for i in range(len(digitsC)):
+        if len(digitsC) !=8:
+            digitsC.insert(0,'0')
+        else:
+            break
+    print(digits)
+    print("len", len(digitsC))
+
+    # for i in range(len(digits)):
+    #     print(digits[len(digits)-(i+1)])
+    hexa = []
+    total = 0
+    index = 0
+    for i in range(2):
+        count = 0
+        print("total before while", total, "count", count, "index", index)
+        while count != 4:
+            if (index+1) < len(digitsC):
+                if digitsC[len(digitsC)-(index+1)] != '0':
+                    print("index", index, "length", len(digitsC)-(index+1), "item", digitsC[len(digitsC)-(index+1)], "count", count)
+                    total += 2**count
+                    print("total", total)
+                count += 1
+                index += 1
+            else:
+                break
+        # print("len(digits)/2", len(digits)/2-1)
+        print("total after while", total)
+        index = len(digitsC)/2
+
+
+    # print(digits, base1, base2)
+    # total = 0
+    # for i in range(len(digits)):
+    #     print((len(digits)-(i+1)))
+    #     # if digits[i] == '1':
+    #     #     total+=2**((len(digits)-(i+1)))
+    #
+    # print("sum", total)
+
     # TODO: Convert digits from base 2 to base 10 (and vice versa)
     # ...
+    # print(digits, base1, base2)
+    # sum = 0
+    # for i in range(len(digits)):
+    #     if digits[i] == '1':
+    #         sum+=2**((len(digits)-(i+1)))
+    #
+    # print("sum", sum)
+
     # TODO: Convert digits from base 10 to base 16 (and vice versa)
     # ...
+
     # TODO: Convert digits from any base to any base (2 up to 36)
     # ...
+
 
 
 def main():
