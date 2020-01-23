@@ -55,36 +55,53 @@ def convert(digits, base1, base2):
     # ...
     print(len(digits))
     digitsC = list(digits)
-    print(digitsC)
-    for i in range(len(digitsC)):
-        if len(digitsC) !=8:
-            digitsC.insert(0,'0')
-        else:
-            break
-    print(digits)
-    print("len", len(digitsC))
+    # print(digitsC)
+    # for i in range(len(digitsC)):
+    #     if len(digitsC) !=8:
+    #         digitsC.insert(0,'0')
+    #     else:
+    #         break
+    # print(digits)
+    # print("len", len(digitsC))
 
     # for i in range(len(digits)):
     #     print(digits[len(digits)-(i+1)])
+    hexAlp = {10:'A', 11:'B', 12:'C', 13:'D', 14:'E', 15:'F'}
     hexa = []
     total = 0
     index = 0
-    for i in range(2):
+    for i in range(3):
         count = 0
-        print("total before while", total, "count", count, "index", index)
+        # print("total before while", total, "count", count, "index", index)
         while count != 4:
+            print("index", index, "length", len(digitsC)-(index+1), "item", digitsC[len(digitsC)-(index+1)], "count", count)
             if (index+1) < len(digitsC):
                 if digitsC[len(digitsC)-(index+1)] != '0':
-                    print("index", index, "length", len(digitsC)-(index+1), "item", digitsC[len(digitsC)-(index+1)], "count", count)
+                    print("2**count", 2**count)
                     total += 2**count
                     print("total", total)
                 count += 1
                 index += 1
             else:
+                if digitsC[len(digitsC)-(index+1)] != '0':
+                    print("2**count", 2**count)
+                    total += 2**count
+                    print("total", total)
                 break
+        if total <= 9:
+            hexa.insert(0, total)
+        elif total in hexAlp.keys():
+            print("hexAlp.get(total)", hexAlp.get(total))
+            hexa.append(hexAlp.get(total))
+        total = 0
+        print("resetting while")
         # print("len(digits)/2", len(digits)/2-1)
-        print("total after while", total)
-        index = len(digitsC)/2
+
+        # print("total after while", total)
+        print("index before index", index)
+        # index = len(digitsC)/2
+        print("index after index", index)
+    print("hexa", hexa)
 
 
     # print(digits, base1, base2)
