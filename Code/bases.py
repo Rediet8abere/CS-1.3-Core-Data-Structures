@@ -143,7 +143,7 @@ def convert(digits, base1, base2):
     elif base1 == 10 and base2 == 2:
         total = 0
         index = 0
-        bin =[]
+        tobebin =[]
         sub = int(digits)
         # print("digits", type(int(digits)))
         while sub > 0:
@@ -151,13 +151,36 @@ def convert(digits, base1, base2):
                 total = 2**(index)
                 print("index", index, "total", total)
                 index += 1
-            total = total/2
+            total = int(total/2)
             print("total", total, "sub", sub)
+            tobebin.append(total)
             sub -= total
             print("sub after substraction", sub)
             total = 0
             index = 0
             # break
+        print("tobebin", tobebin, "index", index)
+        print(len(tobebin)-1)
+        bin = []
+        i = 0
+        while index != len(tobebin):
+            if 2**(i) == tobebin[len(tobebin)-(index+1)]:
+                print("in if", 2**(i), tobebin[len(tobebin)-(index+1)])
+                print(i, index, tobebin[len(tobebin)-(index+1)])
+                bin.insert(0, 1)
+                index += 1
+                i+=1
+            elif 2**(i) != tobebin[len(tobebin)-(index+1)]:
+                print("in else", 2**(i), tobebin[len(tobebin)-(index+1)])
+                print(i, index, tobebin[len(tobebin)-(index+1)])
+                bin.insert(0, 0)
+                i+=1
+                # i += 1
+            elif i == len(tobebin)-1:
+                print("breaking")
+                break
+        print("bin", bin)
+
 
     # TODO: Convert digits from base 10 to base 16 (and vice versa)
     # ...
