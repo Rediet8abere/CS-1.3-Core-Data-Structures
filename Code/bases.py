@@ -1,6 +1,7 @@
 #!python
 
 import string
+import math
 # Hint: Use these string constants to encode/decode hexadecimal digits and more
 # string.digits is '0123456789'
 # string.hexdigits is '0123456789abcdefABCDEF'
@@ -70,7 +71,9 @@ def convert(digits, base1, base2):
     hexa = []
     total = 0
     index = 0
-    for i in range(3):
+    loop = math.ceil((len(digitsC)/4.0))
+    print("looping",  loop)
+    for i in range(int(loop)):
         count = 0
         # print("total before while", total, "count", count, "index", index)
         while count != 4:
@@ -102,6 +105,34 @@ def convert(digits, base1, base2):
         # index = len(digitsC)/2
         print("index after index", index)
     print("hexa", hexa)
+
+    # 16 to 2
+    for i in range(int(loop)):
+        count = 0
+        # print("total before while", total, "count", count, "index", index)
+        while count != 4:
+            print("index", index, "length", len(digitsC)-(index+1), "item", digitsC[len(digitsC)-(index+1)], "count", count)
+            if (index+1) < len(digitsC):
+                if digitsC[len(digitsC)-(index+1)] != '0':
+                    print("2**count", 2**count)
+                    total += 2**count
+                    print("total", total)
+                count += 1
+                index += 1
+            else:
+                if digitsC[len(digitsC)-(index+1)] != '0':
+                    print("2**count", 2**count)
+                    total += 2**count
+                    print("total", total)
+                break
+        if total <= 9:
+            hexa.insert(0, total)
+        elif total in hexAlp.keys():
+            print("hexAlp.get(total)", hexAlp.get(total))
+            hexa.append(hexAlp.get(total))
+        total = 0
+        print("resetting while")
+
 
 
     # print(digits, base1, base2)
