@@ -67,95 +67,101 @@ def convert(digits, base1, base2):
 
     # for i in range(len(digits)):
     #     print(digits[len(digits)-(i+1)])
-    hexAlp = {10:'A', 11:'B', 12:'C', 13:'D', 14:'E', 15:'F'}
-    hexa = []
-    total = 0
-    index = 0
-    loop = math.ceil((len(digitsC)/4.0))
-    print("looping",  loop)
-    for i in range(int(loop)):
-        count = 0
-        # print("total before while", total, "count", count, "index", index)
-        while count != 4:
-            print("index", index, "length", len(digitsC)-(index+1), "item", digitsC[len(digitsC)-(index+1)], "count", count)
-            if (index+1) < len(digitsC):
-                if digitsC[len(digitsC)-(index+1)] != '0':
-                    print("2**count", 2**count)
-                    total += 2**count
-                    print("total", total)
-                count += 1
-                index += 1
-            else:
-                if digitsC[len(digitsC)-(index+1)] != '0':
-                    print("2**count", 2**count)
-                    total += 2**count
-                    print("total", total)
-                break
-        if total <= 9:
-            hexa.insert(0, total)
-        elif total in hexAlp.keys():
-            print("hexAlp.get(total)", hexAlp.get(total))
-            hexa.append(hexAlp.get(total))
+    if base1 == 2 and base2 == 16:
+        hexAlp = {10:'A', 11:'B', 12:'C', 13:'D', 14:'E', 15:'F'}
+        hexa = []
         total = 0
-        print("resetting while")
-        # print("len(digits)/2", len(digits)/2-1)
+        index = 0
+        loop = math.ceil((len(digitsC)/4.0))
+        print("looping",  loop)
+        for i in range(int(loop)):
+            count = 0
+            # print("total before while", total, "count", count, "index", index)
+            while count != 4:
+                print("index", index, "length", len(digitsC)-(index+1), "item", digitsC[len(digitsC)-(index+1)], "count", count)
+                if (index+1) < len(digitsC):
+                    if digitsC[len(digitsC)-(index+1)] != '0':
+                        print("2**count", 2**count)
+                        total += 2**count
+                        print("total", total)
+                    count += 1
+                    index += 1
+                else:
+                    if digitsC[len(digitsC)-(index+1)] != '0':
+                        print("2**count", 2**count)
+                        total += 2**count
+                        print("total", total)
+                    break
+            if total <= 9:
+                hexa.insert(0, total)
+            elif total in hexAlp.keys():
+                print("hexAlp.get(total)", hexAlp.get(total))
+                hexa.append(hexAlp.get(total))
+            total = 0
+        print("hexa", hexa)
+    elif base1 == 16 and base2 == 2:
+        hexAlp = {'A':10, 'B':11, 'C':12, 'D':13, 'E':14, 'F':15}
+        bin = []
 
-        # print("total after while", total)
-        print("index before index", index)
-        # index = len(digitsC)/2
-        print("index after index", index)
-    print("hexa", hexa)
-
-    # 16 to 2
-    for i in range(int(loop)):
-        count = 0
-        # print("total before while", total, "count", count, "index", index)
-        while count != 4:
-            print("index", index, "length", len(digitsC)-(index+1), "item", digitsC[len(digitsC)-(index+1)], "count", count)
-            if (index+1) < len(digitsC):
-                if digitsC[len(digitsC)-(index+1)] != '0':
-                    print("2**count", 2**count)
-                    total += 2**count
-                    print("total", total)
-                count += 1
-                index += 1
-            else:
-                if digitsC[len(digitsC)-(index+1)] != '0':
-                    print("2**count", 2**count)
-                    total += 2**count
-                    print("total", total)
-                break
-        if total <= 9:
-            hexa.insert(0, total)
-        elif total in hexAlp.keys():
-            print("hexAlp.get(total)", hexAlp.get(total))
-            hexa.append(hexAlp.get(total))
+        index = 0
         total = 0
-        print("resetting while")
+        for i in range(len(digits)):
+            if digits[index].isdigit():
+                while total != int(digits[index]):
+                    total += 2**i
+                sTotal = str(total)
+                while len(sTotal) != 4:
+                    bin.insert(0, '0')
+                    sTotal += '0'
+                bin.append(total)
+                index += 1
+                total = 0
+                print("total", total)
+                print("binary", bin)
+            else:
+                print("getting", type(hexAlp.get(digits[index])))
+                for i in range(5):
+                    total += 2**i
+                print("total", total)
+                # while total != hexAlp.get(digits[index]):
+                #     total += 2**i
+                #     pass
+                print("total", total)
+                print("index", index, hexAlp.get(digits[index]))
 
+        print("bin", bin)
 
+            # TODO: Convert digits from base 2 to base 10 (and vice versa)
+    elif base1 == 2 and base2 == 10:
+        # print(digits, base1, base2)
+        sum = 0
+        for i in range(len(digits)):
+            if digits[i] == '1':
+                sum+=2**((len(digits)-(i+1)))
 
-    # print(digits, base1, base2)
-    # total = 0
-    # for i in range(len(digits)):
-    #     print((len(digits)-(i+1)))
-    #     # if digits[i] == '1':
-    #     #     total+=2**((len(digits)-(i+1)))
-    #
-    # print("sum", total)
-
-    # TODO: Convert digits from base 2 to base 10 (and vice versa)
-    # ...
-    # print(digits, base1, base2)
-    # sum = 0
-    # for i in range(len(digits)):
-    #     if digits[i] == '1':
-    #         sum+=2**((len(digits)-(i+1)))
-    #
-    # print("sum", sum)
+        print("sum", sum)
+    elif base1 == 10 and base2 == 2:
+        total = 0
+        index = 0
+        bin =[]
+        sub = int(digits)
+        # print("digits", type(int(digits)))
+        while sub > 0:
+            while total <= sub:
+                total = 2**(index)
+                print("index", index, "total", total)
+                index += 1
+            total = total/2
+            print("total", total, "sub", sub)
+            sub -= total
+            print("sub after substraction", sub)
+            total = 0
+            index = 0
+            # break
 
     # TODO: Convert digits from base 10 to base 16 (and vice versa)
     # ...
+
 
     # TODO: Convert digits from any base to any base (2 up to 36)
     # ...
