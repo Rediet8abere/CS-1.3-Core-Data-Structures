@@ -20,8 +20,36 @@ def decode(digits, base):
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
     # TODO: Decode digits from binary (base 2)
     # ...
+    print("decoding")
+    binary = []
+    if base == 2:
+        # print(digits, base1, base2)
+        sum = 0
+        for i in range(len(digits)):
+            if digits[i] == '1':
+                sum+=2**((len(digits)-(i+1)))
+
+        print("sum", sum)
     # TODO: Decode digits from hexadecimal (base 16)
     # ...
+    elif base == 16:
+        hexAlp = {'A':10, 'B':11, 'C':12, 'D':13, 'E':14, 'F':15}
+        bin = []
+        tobebin =[]
+        hexa = digits
+        for i in range(len(hexa)):
+            if hexa[i].isdigit():
+                tobebin.append(hexa[i])
+            else:
+                tobebin.append(hexAlp.get(hexa[i]))
+        for i in range(len(tobebin)):
+            bin = encode(int(tobebin[i]), 2)
+            while len(bin) != 4:
+                bin.insert(0, 0)
+            binary.extend(bin)
+        s = ''.join(str(i) for i in binary)
+        decode(s, 2)
+
     # TODO: Decode digits from any base (2 up to 36)
     # ...
 
@@ -38,8 +66,9 @@ def encode(number, base):
     bin = []
     sub = number
     # Encode number in binary (base 2)
+    print("base", base)
     if base == 2:
-        print("encodeing")
+        print("encodeing to base 2")
         total = 0
         index = 0
         tobebin =[]
@@ -65,8 +94,8 @@ def encode(number, base):
 
     # Encode number in any base (2 up to 36)
     elif base == 16 or base == 8 or base == 36:
-        hexAlp = {10:'A', 11:'B', 12:'C', 13:'D', 14:'E', 15:'F', 16:'G', 17:'H', 18:'I', 19:'J',
-         20:'K', 21:'L', 22:'M', 23:'N', 24:'O', 25:'P',26: 'Q', 27:'R', 28:'S', 29:'T', 30:'U', 31:'V', 32:'W', 33:'X', 34:'Y', 35:'Z'}
+        hexAlp = {10:'A', 11:'B', 12:'C', 13:'D', 14:'E', 15:'F', 16:'G', 17:'H', 18:'I', 19:'J', 20:'K', 21:'L', 22:'M',
+                  23:'N', 24:'O', 25:'P',26: 'Q', 27:'R', 28:'S', 29:'T', 30:'U', 31:'V', 32:'W', 33:'X', 34:'Y', 35:'Z'}
         while sub > 0:
             q, r = divmod(sub, base)
             sub = q
@@ -74,8 +103,10 @@ def encode(number, base):
                 bin.insert(0, hexAlp.get(r))
             else:
                 bin.insert(0, r)
-    s = ''.join(str(i) for i in bin)
-    print("converting", s)
+    print("bin", bin)
+    return bin
+    # s = ''.join(str(i) for i in bin)
+    # print("converting", s)
 
 def convert(digits, base1, base2):
     """Convert given digits in base1 to digits in base2.
@@ -91,6 +122,9 @@ def convert(digits, base1, base2):
     # print(len(digits))
     # digitsC = list(digits)
     encode(int(digits), base2)
+    print("decoding")
+    decode(digits, base1)
+
     # print(digitsC)
     # for i in range(len(digitsC)):
     #     if len(digitsC) !=8:
