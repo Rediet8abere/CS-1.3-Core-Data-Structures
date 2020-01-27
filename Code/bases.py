@@ -34,13 +34,10 @@ def decode(digits, base):
     else:
         for i in range(len(digits)):
             # multipying each palce with it's digit place value
-            print(type(digits[i]))
-            print(digits[i].isdigit())
             if digits[len(digits)-(i+1)].isdigit():
                 sum += int(digits[len(digits)-(i+1)])*(base**i)
             else:
-                sum += hexAlp.get(digits[len(digits)-(i+1)].upper())
-        print("sum", sum)
+                sum += hexAlp.get(digits[len(digits)-(i+1)].upper())*(base**i)
     return sum
 
 
@@ -88,7 +85,7 @@ def encode(number, base):
             q, r = divmod(sub, base)
             sub = q
             if r > 9:
-                bin.insert(0, hexAlp.get(r))
+                bin.insert(0, hexAlp.get(r).lower())
             else:
                 bin.insert(0, r)
     s = ''.join(str(i) for i in bin)
@@ -110,7 +107,8 @@ def convert(digits, base1, base2):
         return result
     # TODO: Convert digits from base 2 to base 10 (and vice versa)
     elif base1 == 2 and base2 == 10:
-        result = decode(digits, base1)
+        baseTen = decode(digits, base1)
+        result = encode(baseTen, base2)
         return result
 
     # TODO: Convert digits from base 10 to base 16 (and vice versa)
@@ -121,9 +119,9 @@ def convert(digits, base1, base2):
     # TODO: Convert digits from any base to any base (2 up to 36)
     else:
         baseTen = decode(digits, base1)
-        print("baseTen", baseTen)
+        # print("baseTen", baseTen)
         result = encode(baseTen, base2)
-        print("result", result)
+        # print("digit", digits, "result", result)
         return result
 
 
