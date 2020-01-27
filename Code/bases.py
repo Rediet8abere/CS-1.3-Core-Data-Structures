@@ -18,47 +18,30 @@ def decode(digits, base):
     return: int -- integer representation of number (in base 10)"""
     # Handle up to base 36 [0-9a-z]
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
-    # TODO: Decode digits from binary (base 2)
-    # ...
+    # Decode digits from binary (base 2)
     binary = []
     tobebin =[]
     bin = []
+    sum = 0
     hexAlp = {'A':10, 'B':11, 'C':12, 'D':13, 'E':14, 'F':15, 'G':16, 'H':17, 'I':18, 'J':19, 'K':20, 'L':21, 'M':22,
               'N':23, 'O':24, 'P':25, 'Q':26, 'R':27, 'S':28, 'T':29, 'U':30, 'V':31, 'W':32, 'X':33, 'Y':34, 'Z':35}
-    print("decoding")
+    # print("decoding")
     if base == 2:
-        sum = 0
         for i in range(len(digits)):
             if digits[i] == '1':
                 sum+=2**((len(digits)-(i+1)))
-        print("sum", sum)
-        return sum
-    #  Decode digits from hexadecimal (base 16)
-    elif base == 10:
-        return int(digits)
-    elif base == 16:
-        hexa = digits
-        for i in range(len(hexa)):
-            if hexa[i].isdigit():
-                tobebin.append(hexa[i])
+    #  Decode digits from hexadecimal (base 16) and Decode digits from any base (2 up to 36)
+    else:
+        for i in range(len(digits)):
+            # multipying each palce with it's digit place value
+            print(type(digits[i]))
+            print(digits[i].isdigit())
+            if digits[len(digits)-(i+1)].isdigit():
+                sum += int(digits[len(digits)-(i+1)])*(base**i)
             else:
-                tobebin.append(hexAlp.get(hexa[i].upper()))
-        for i in range(len(tobebin)):
-            bin = encode(int(tobebin[i]), 2)
-            while len(bin) != 4:
-                bin.insert(0, 0)
-            binary.extend(bin)
-        s = ''.join(str(i) for i in binary)
-        sum = decode(s, 2)
-        return sum
-    elif base == 8:
-        octa = digits
-        for i in range(len(octa)):
-            bin = encode(int(octa[i]), 2)
-            while len(bin) != 3:
-                bin.insert(0, 0)
-            binary.extend(bin)
-    # TODO: Decode digits from any base (2 up to 36)
+                sum += hexAlp.get(digits[len(digits)-(i+1)].upper())
+        print("sum", sum)
+    return sum
 
 
 def encode(number, base):
