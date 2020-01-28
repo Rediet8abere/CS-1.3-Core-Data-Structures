@@ -37,7 +37,7 @@ class BasesDecodeTest(unittest.TestCase):
         assert decode('6789', 10) == 6789
         assert decode('13579', 10) == 13579
         assert decode('24680', 10) == 24680
-#
+
     def test_decode_hexadecimal(self):
         assert decode('a', 16) == 10
         assert decode('f', 16) == 15
@@ -51,7 +51,7 @@ class BasesDecodeTest(unittest.TestCase):
         assert decode('facade', 16) == 16435934
         assert decode('deadbeef', 16) == 3735928559
         assert decode('f007ba11', 16) == 4027038225
-#
+
     def test_decode_10(self):
         assert decode('10', 2) == 2
         assert decode('10', 4) == 4
