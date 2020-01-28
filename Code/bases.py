@@ -19,25 +19,58 @@ def decode(digits, base):
     # Handle up to base 36 [0-9a-z]
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
     # Decode digits from binary (base 2)
+    hexAlp = {'A':10, 'B':11, 'C':12, 'D':13, 'E':14, 'F':15, 'G':16, 'H':17, 'I':18, 'J':19, 'K':20, 'L':21, 'M':22,
+              'N':23, 'O':24, 'P':25, 'Q':26, 'R':27, 'S':28, 'T':29, 'U':30, 'V':31, 'W':32, 'X':33, 'Y':34, 'Z':35}
     binary = []
     tobebin =[]
     bin = []
     sum = 0
-    hexAlp = {'A':10, 'B':11, 'C':12, 'D':13, 'E':14, 'F':15, 'G':16, 'H':17, 'I':18, 'J':19, 'K':20, 'L':21, 'M':22,
-              'N':23, 'O':24, 'P':25, 'Q':26, 'R':27, 'S':28, 'T':29, 'U':30, 'V':31, 'W':32, 'X':33, 'Y':34, 'Z':35}
-    # print("decoding")
-    # if base == 2:
-    #     for i in range(len(digits)):
-    #         if digits[i] == '1':
-    #             sum+=2**((len(digits)-(i+1)))
-    #  Decode digits from hexadecimal (base 16) and Decode digits from any base (2 up to 36)
-    # else:
-    for i in range(len(digits)):
-        # multipying each palce with it's digit place value
-        if digits[len(digits)-(i+1)].isdigit():
-            sum += int(digits[len(digits)-(i+1)])*(base**i)
+    frac = ''
+    sumFrac = 0
+    if digits.isupper() or digits.islower():
+        print("not ")
+        if (digits.find('.')!=-1) == True:
+            print("index", digits.index('.'))
+            print("digits[:digits.index('.')]", digits[:digits.index('.')])
+            number = digits[:digits.index('.')]
+            frac += "0"+digits[digits.index('.'):]
+            print("True")
         else:
-            sum += hexAlp.get(digits[len(digits)-(i+1)].upper())*(base**i)
+            number = digits
+    elif isinstance(float(digits), float) == True:
+        print("floating")
+        x = float(digits)
+        frac += str(round(x-int(x), (len(digits)-1) - len(str(int(x)))))
+        number = str(int(float(digits)))
+    print("fraction decoding", frac)
+
+
+
+    for i in range(len(number)):
+        # multipying each palce with it's digit place value
+        if number[len(number)-(i+1)].isdigit():
+            sum += int(number[len(number)-(i+1)])*(base**i)
+        else:
+            sum += hexAlp.get(number[len(number)-(i+1)].upper())*(base**i)
+    count = -1
+    for i in range(len(frac[2:])):
+        if frac[2:][i].isdigit():
+            sumFrac += (int(frac[2:][i])) * (base**count)
+            # print(base**count, "base", base, "count", count)
+        else:
+            print("frac[2:][i])", frac[2:][i])
+            print("upper", frac[2:][i].upper())
+            sumFrac += hexAlp.get(frac[2:][i].upper()) * (base**count)
+            # print(base**count, "base", base, "count", count)
+        # print("frac[2:][i]", frac[2:][i])
+        # if frac[2:][i] == '1':
+        #     sum += base**count
+        #     print("sumFrac", sum)
+        #     print(base**count, "base", base, "count", count)
+        count -= 1
+    print("sumFrac", sumFrac)
+
+    print("decoding sum", sum)
     return sum
 
 
@@ -51,12 +84,23 @@ def encode(number, base):
     # Handle unsigned numbers only for now
     assert number >= 0, 'number is negative: {}'.format(number)
     bin = []
-    sub = number
+    print("type", type(number))
+    # frac = ''
+    # if digits.isupper() or digits.islower():
+    #     number = digits
+    # elif isinstance(float(digits), float) == True:
+    #     x = float(digits)
+    #     frac += str(x-int(x))
+    #     number = str(int(float(digits)))
+    # print("fraction", frac)
 
+    sub = number
     # Encode number in any base (2 up to 36)
     # else:
     hexAlp = {10:'A', 11:'B', 12:'C', 13:'D', 14:'E', 15:'F', 16:'G', 17:'H', 18:'I', 19:'J', 20:'K', 21:'L', 22:'M',
               23:'N', 24:'O', 25:'P',26: 'Q', 27:'R', 28:'S', 29:'T', 30:'U', 31:'V', 32:'W', 33:'X', 34:'Y', 35:'Z'}
+
+    # print("sub is integer", sub.is_integer())
     while sub > 0:
         q, r = divmod(sub, base)
         sub = q
