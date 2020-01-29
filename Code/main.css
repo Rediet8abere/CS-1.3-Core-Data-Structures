@@ -1,0 +1,17 @@
+h1 {
+  font-size: 100px;
+}
+
+.btn btn-primary {
+  position: relative;
+  left: 100px;
+  top: 150px;
+}
+
+.btn btn-secondary {
+
+}
+
+.btn btn-success {
+
+}
