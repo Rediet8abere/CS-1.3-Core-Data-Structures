@@ -73,8 +73,6 @@ def encode(number, base):
     subF = 0
     if (str(number).find('.')!=-1) == True:
         numS = str(number)
-        # print("index", digits.index('.'))
-        # print("digits[:digits.index('.')]", digits[:digits.index('.')])
         sub = int(numS[:numS.index('.')])
         frac += "0"+numS[numS.index('.'):]
         subF = float(frac)
