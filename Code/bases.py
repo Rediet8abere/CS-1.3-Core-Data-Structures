@@ -28,21 +28,15 @@ def decode(digits, base):
     frac = ''
     sumFrac = 0
     if digits.isupper() or digits.islower():
-        print("not ")
         if (digits.find('.')!=-1) == True:
-            print("index", digits.index('.'))
-            print("digits[:digits.index('.')]", digits[:digits.index('.')])
             number = digits[:digits.index('.')]
             frac += "0"+digits[digits.index('.'):]
-            print("True")
         else:
             number = digits
     elif isinstance(float(digits), float) == True:
-        print("floating")
         x = float(digits)
         frac += str(round(x-int(x), (len(digits)-1) - len(str(int(x)))))
         number = str(int(float(digits)))
-    print("fraction decoding", frac)
 
 
 
@@ -54,23 +48,13 @@ def decode(digits, base):
             sum += hexAlp.get(number[len(number)-(i+1)].upper())*(base**i)
     count = -1
     for i in range(len(frac[2:])):
-        if frac[2:][i].isdigit():
-            sumFrac += (int(frac[2:][i])) * (base**count)
-            # print(base**count, "base", base, "count", count)
+        if frac[2:] == '0':
+            return sum
+        elif frac[2:][i].isdigit():
+            sum += (int(frac[2:][i])) * (base**count)
         else:
-            print("frac[2:][i])", frac[2:][i])
-            print("upper", frac[2:][i].upper())
-            sumFrac += hexAlp.get(frac[2:][i].upper()) * (base**count)
-            # print(base**count, "base", base, "count", count)
-        # print("frac[2:][i]", frac[2:][i])
-        # if frac[2:][i] == '1':
-        #     sum += base**count
-        #     print("sumFrac", sum)
-        #     print(base**count, "base", base, "count", count)
+            sum += hexAlp.get(frac[2:][i].upper()) * (base**count)
         count -= 1
-    print("sumFrac", sumFrac)
-
-    print("decoding sum", sum)
     return sum
 
 
@@ -84,17 +68,21 @@ def encode(number, base):
     # Handle unsigned numbers only for now
     assert number >= 0, 'number is negative: {}'.format(number)
     bin = []
-    print("type", type(number))
-    # frac = ''
-    # if digits.isupper() or digits.islower():
-    #     number = digits
-    # elif isinstance(float(digits), float) == True:
-    #     x = float(digits)
-    #     frac += str(x-int(x))
-    #     number = str(int(float(digits)))
-    # print("fraction", frac)
+    frac = ''
+    sub = 0
+    subF = 0
+    if (str(number).find('.')!=-1) == True:
+        numS = str(number)
+        # print("index", digits.index('.'))
+        # print("digits[:digits.index('.')]", digits[:digits.index('.')])
+        sub = int(numS[:numS.index('.')])
+        frac += "0"+numS[numS.index('.'):]
+        subF = float(frac)
+    else:
+        sub = number
 
-    sub = number
+
+
     # Encode number in any base (2 up to 36)
     # else:
     hexAlp = {10:'A', 11:'B', 12:'C', 13:'D', 14:'E', 15:'F', 16:'G', 17:'H', 18:'I', 19:'J', 20:'K', 21:'L', 22:'M',
@@ -108,7 +96,27 @@ def encode(number, base):
             bin.insert(0, hexAlp.get(r).lower())
         else:
             bin.insert(0, r)
+    binDec = []
+    binary = []
+
+    if len(frac) != 0:
+        while subF != 0:
+            binDec.append(round(base*subF, 5))
+            if 0 < base*subF < 1:
+                subF = round(base*subF, 3)
+            else:
+                subF = base*subF - int(base*subF)
+        for i in range(len(binDec)):
+            if 0 < binDec[i] < 1:
+                binary.append(0)
+            elif 9 >= binDec[i] >= 1:
+                binary.append(int(binDec[i]))
+            else:
+                binary.append(hexAlp.get(int(binDec[i])))
+
     s = ''.join(str(i) for i in bin)
+    if len(binary) != 0:
+        s+= '.' + ''.join(str(i) for i in binary)
     return s
 
 def convert(digits, base1, base2):
@@ -139,9 +147,7 @@ def convert(digits, base1, base2):
     # TODO: Convert digits from any base to any base (2 up to 36)
     else:
         baseTen = decode(digits, base1)
-        # print("baseTen", baseTen)
         result = encode(baseTen, base2)
-        # print("digit", digits, "result", result)
         return result
 
 
