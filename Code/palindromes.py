@@ -19,7 +19,12 @@ def is_palindrome(text):
 
 def is_palindrome_iterative(text):
     # TODO: implement the is_palindrome function iteratively here
-    pass
+    print("text", text)
+    for i in range(len(text)):
+        if text[i] == text[len(text)-(i+1)]:
+            print("equal")
+        else:
+            
     # once implemented, change is_palindrome to call is_palindrome_iterative
     # to verify that your iterative implementation passes all tests
 
