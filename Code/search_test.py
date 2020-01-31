@@ -35,7 +35,7 @@ class SearchTest(unittest.TestCase):
         assert binary_search(names, 'Nabil') == 4
         assert binary_search(names, 'Nick') == 5
         assert binary_search(names, 'Winnie') == 6
-
+    #
     def test_binary_search_with_items_not_in_list(self):
         # binary search requires list values to be in sorted order
         names = ['Alex', 'Brian', 'Julia', 'Kojin', 'Nabil', 'Nick', 'Winnie']
