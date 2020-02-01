@@ -4,7 +4,29 @@ def contains(text, pattern):
     """Return a boolean indicating whether pattern occurs in text."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-    # TODO: Implement contains here (iteratively and/or recursively)
+    # Implement contains here (iteratively and/or recursively)
+    index = 0
+    count = 0
+    indexP = []
+    if len(pattern) == 0:
+        print("Hi")
+        return True
+    print("lenT", len(text))
+    print("lenP", len(pattern))
+    for i in range(len(text)):
+        if index < (len(pattern)-1):
+            if text[i] == pattern[index]:
+                index += 1
+            elif text[i] != pattern[index]:
+                index = 0
+        elif index == (len(pattern)-1) and (len(pattern)-1) != (1 or 2):
+            print("index", index, "(len(pattern)-1)", (len(pattern)-1))
+            count += 1
+            index = 0
+    if count == 0:
+        return False
+    print("Howdy", count)
+    return True
 
 
 def find_index(text, pattern):
@@ -12,7 +34,14 @@ def find_index(text, pattern):
     or None if not found."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-    # TODO: Implement find_index here (iteratively and/or recursively)
+    # Implement find_index here (iteratively and/or recursively)
+    index = 0
+    count = 0
+    for i in range(len(text)):
+        if index < (len(pattern)-1):
+            if text[i] == pattern[index]:
+                return i
+    return None
 
 
 def find_all_indexes(text, pattern):
@@ -20,16 +49,33 @@ def find_all_indexes(text, pattern):
     or an empty list if not found."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-    # TODO: Implement find_all_indexes here (iteratively and/or recursively)
+    # Implement find_all_indexes here (iteratively and/or recursively)
+    indexes = []
+    index = 0
+    count = 0
+    for i in range(len(text)):
+        if index < (len(pattern)-1):
+            if text[i] == pattern[index]:
+                index += 1
+            elif text[i] != pattern[index]:
+                index = 0
+        elif index == (len(pattern)-1) and (len(pattern)-1) != (1 or 2):
+            count += 1
+            indexes.append(((i+1)-len(pattern)))
+            index = 0
+    if count == 0:
+        return []
+    return indexes
+
 
 
 def test_string_algorithms(text, pattern):
     found = contains(text, pattern)
     print('contains({!r}, {!r}) => {}'.format(text, pattern, found))
-    # TODO: Uncomment these lines after you implement find_index
+    # Uncomment these lines after you implement find_index
     index = find_index(text, pattern)
     print('find_index({!r}, {!r}) => {}'.format(text, pattern, index))
-    # TODO: Uncomment these lines after you implement find_all_indexes
+    # Uncomment these lines after you implement find_all_indexes
     indexes = find_all_indexes(text, pattern)
     print('find_all_indexes({!r}, {!r}) => {}'.format(text, pattern, indexes))
 
