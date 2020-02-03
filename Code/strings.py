@@ -13,20 +13,24 @@ def contains(text, pattern):
         return True
     print("lenT", len(text))
     print("lenP", len(pattern))
+
     for i in range(len(text)):
+        print("checkinmg", pattern[index], text[i], pattern[index] == text[i])
         if index < (len(pattern)-1):
             if text[i] == pattern[index]:
                 index += 1
             elif text[i] != pattern[index]:
                 index = 0
-        elif index == (len(pattern)-1) and (len(pattern)-1) != (1 or 2):
-            print("index", index, "(len(pattern)-1)", (len(pattern)-1))
+        elif index == (len(pattern)-1) and pattern[index] == text[i]:
+            # print("index", index, "(len(pattern)-1)", (len(pattern)-1))
             count += 1
             index = 0
+            # print("pattern[index]", pattern[index], "text[i]", text[i])
     if count == 0:
         return False
-    print("Howdy", count)
+    # print("count", count)
     return True
+
 
 
 def find_index(text, pattern):
@@ -59,7 +63,7 @@ def find_all_indexes(text, pattern):
                 index += 1
             elif text[i] != pattern[index]:
                 index = 0
-        elif index == (len(pattern)-1) and (len(pattern)-1) != (1 or 2):
+        elif index == (len(pattern)-1) and len(pattern) != (1 or 2):
             count += 1
             indexes.append(((i+1)-len(pattern)))
             index = 0

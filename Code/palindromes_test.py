@@ -34,7 +34,7 @@ class TestPalindromes(unittest.TestCase):
         assert is_palindrome('taco cat') is True
         assert is_palindrome('race car') is True
         assert is_palindrome('race fast safe car') is True
-
+    #
     def test_is_palindrome_with_whitespace_and_mixed_casing(self):
         # palindromes with whitespace and mixed letter casing
         assert is_palindrome('B b') is True
@@ -43,7 +43,7 @@ class TestPalindromes(unittest.TestCase):
         assert is_palindrome('Taco Cat') is True
         assert is_palindrome('Race Car') is True
         assert is_palindrome('Race Fast Safe Car') is True
-
+    #
     def test_is_palindrome_with_whitespace_and_punctuation(self):
         # palindromes with whitespace and punctuation
         assert is_palindrome('B-B') is True
@@ -63,7 +63,7 @@ class TestPalindromes(unittest.TestCase):
         assert is_palindrome('Was it a car or a cat I saw?') is True
         assert is_palindrome("Go hang a salami, I'm a lasagna hog.") is True
         assert is_palindrome('A man, a plan, a canal - Panama!') is True
-
+    #
     def test_is_palindrome_with_non_palindromic_strings(self):
         # examples of non-palindromic strings that should be rejected
         assert is_palindrome('AB') is False  # even length
