@@ -18,6 +18,7 @@ def contains(text, pattern):
                     return True
             elif index != 0:
                 index = 0
+                # i += 1
             else:
                 i += 1
         else:
@@ -36,24 +37,24 @@ def find_index(text, pattern):
     if len(pattern) == 0:
         return 0
 
-    if contains(text, pattern):
-        index = 0
-        i = 0
-        while i < len(text):
-            if index < len(pattern):
-                if pattern[index] == text[i]:
-                    index += 1
-                    i += 1
-                    if index == len(pattern):
-                        return i-len(pattern)
-                elif index != 0:
-                    index = 0
-                else:
-                    i += 1
-            else:
+    # if contains(text, pattern):
+    index = 0
+    i = 0
+    while i < len(text):
+        if index < len(pattern):
+            if pattern[index] == text[i]:
+                index += 1
+                i += 1
+                if index == len(pattern):
+                    return i-len(pattern)
+            elif index != 0:
                 index = 0
-                if pattern[index] == text[i]:
-                    index += 1
+            else:
+                i += 1
+        else:
+            index = 0
+            if pattern[index] == text[i]:
+                index += 1
     return None
 
 
@@ -88,46 +89,6 @@ def find_all_indexes(text, pattern):
             index = 0
     return indexes
 
-
-
-
-
-
-
-
-
-
-    # if contains(text, pattern):
-    #     index = 0
-    #     i = 0
-    #     for j in range(len(text)*len(pattern)):
-    #         if index < len(pattern):
-    #             if index == len(pattern) and i == len(text): # while statements
-    #                 return indexes
-    #             elif i >= len(text):
-    #                 i -= 1
-    #             if pattern[index] == text[i]:
-    #                 index += 1
-    #                 i += 1
-    #                 if index == len(pattern):
-    #                     indexes.append(i-len(pattern))
-    #             elif index != 0 and :
-    #                 index = 0
-    #                 i -= 1
-    #             else:
-    #                 i += 1
-    #         else:
-    #             index = 0
-    #             if i < len(text):
-    #                 if pattern[index] == text[i]:
-    #                     index += 1
-    #                     i += 1
-    #                     if index == len(pattern):
-    #                         indexes.append(i-len(pattern))
-    #                 else:
-    #                     i += 1
-    #     return indexes
-    # return indexes
 
 def test_string_algorithms(text, pattern):
     found = contains(text, pattern)

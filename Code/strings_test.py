@@ -18,7 +18,10 @@ class StringsTest(unittest.TestCase):
         assert contains('aaa', 'a') is True  # multiple occurrences
         assert contains('aaa', 'aa') is True  # overlapping pattern
         # TODO: Write more positive test cases with assert is True statements
-        # ...
+        assert contains('..', '.') is True
+        assert contains('../n', './n') is True
+        assert contains('Rediet', 'Redi') is True
+        # assert contains('ooooooooohhhhh', 'oooohhhhh') is True
 
     def test_contains_with_non_matching_patterns(self):
         # Negative test cases (counterexamples) with non-matching patterns
@@ -27,7 +30,10 @@ class StringsTest(unittest.TestCase):
         assert contains('abc', 'az') is False  # first letter, but not last
         assert contains('abc', 'abz') is False  # first 2 letters, but not last
         # TODO: Write more negative test cases with assert is False statements
-        # ...
+        assert contains('btzze', 'tze') is False
+        assert contains('aaa', 'a:''') is False
+        assert contains('greek', 'eik') is False
+        # assert contains('ooooooooohhhhh', 'oooohhh') is False
 
     def test_contains_with_complex_patterns(self):
         # Difficult test cases (examples) with complex patterns
