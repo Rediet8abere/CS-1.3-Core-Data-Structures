@@ -93,12 +93,13 @@ class LinkedList(object):
         if not (0 <= index <= self.size):
             raise ValueError('List index out of range: {}'.format(index))
         # TODO: Find the node before the given index and insert item after it
-        print("index", index, "item", item)
-        # print(self.get_at_index(index))
         new_node = Node(item)
         cur_node = self.head
         if index == 0:
             self.prepend(item)
+            return self
+        if index == self.size:
+            self.append(item)
             return self
 
         while self.get_at_index(index) != cur_node.data:
@@ -108,6 +109,7 @@ class LinkedList(object):
         new_node.next = cur_node
         new_node.prev = prev
         prev.next = new_node
+        self.size += 1
         return self
 
 
@@ -171,7 +173,18 @@ class LinkedList(object):
         Worst case running time: ??? under what conditions? [TODO]"""
         # TODO: Find the node containing the given old_item and replace its
         # data with new_item, without creating a new node object
-        pass
+        print("self", self)
+        print("old_item", old_item, "new_item", new_item)
+        print("self.head", self.head)
+        cur_node = self.head
+        while cur_node.data != old_item:
+            cur_node = cur_node.next
+            if cur_node == None:
+                raise ValueError('"Item Not Found": {}'.format(old_item))
+                # return "Item Not found"
+        cur_node.data = new_item
+        print("self", self)
+        return self
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
@@ -215,6 +228,7 @@ class LinkedList(object):
                     previous.next = None
                 # Update tail to the previous node regardless
                 self.tail = previous
+            self.size -= 1
         else:
             # Otherwise raise an error to tell the user that delete has failed
             raise ValueError('Item not found: {}'.format(item))
@@ -222,15 +236,15 @@ class LinkedList(object):
 
 def test_linked_list():
     ll = LinkedList()
-    print(ll)
-
-    print('Appending items:')
+    # print(ll)
+    #
+    # # print('Appending items:')
     ll.append('A')
-    print(ll)
+    # # print(ll)
     ll.append('B')
-    print(ll)
-    ll.append('C')
-    print(ll)
+    # # print(ll)
+    # ll.append('C')
+    # print(ll)
     print('head: {}'.format(ll.head))
     print('tail: {}'.format(ll.tail))
     print('size: {}'.format(ll.size))
@@ -239,20 +253,21 @@ def test_linked_list():
     print('Getting items by index:')
     for index in range(ll.size):
         item = ll.get_at_index(index)
-        print('get_at_index({}): {!r}'.format(index, item))
-    print(ll.insert_at_index(2,'D'))
+        # print('get_at_index({}): {!r}'.format(index, item))
+    # print(ll.insert_at_index(2,'D'))
+    # print(ll.replace('L','K'))
 
-    print('Deleting items:')
-    ll.delete('B')
-    print(ll)
-    ll.delete('C')
-    print(ll)
-    ll.delete('A')
-    print(ll)
-    print('head: {}'.format(ll.head))
-    print('tail: {}'.format(ll.tail))
-    print('size: {}'.format(ll.size))
-    print('length: {}'.format(ll.length()))
+    # print('Deleting items:')
+    # ll.delete('B')
+    # print(ll)
+    # ll.delete('C')
+    # print(ll)
+    # ll.delete('A')
+    # print(ll)
+    # print('head: {}'.format(ll.head))
+    # print('tail: {}'.format(ll.tail))
+    # print('size: {}'.format(ll.size))
+    # print('length: {}'.format(ll.length()))
 
 
 if __name__ == '__main__':

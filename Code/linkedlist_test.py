@@ -72,7 +72,7 @@ class LinkedListTest(unittest.TestCase):
         assert ll.size == 1
         ll.delete('A')
         assert ll.size == 0
-
+    #
     def test_get_at_index(self):
         ll = LinkedList(['A', 'B', 'C'])
         assert ll.get_at_index(0) == 'A'  # head item
@@ -82,7 +82,7 @@ class LinkedListTest(unittest.TestCase):
             ll.get_at_index(3)  # index too high
         with self.assertRaises(ValueError):
             ll.get_at_index(-1)  # index too low
-
+    #
     def test_insert_at_index(self):
         ll = LinkedList()
         ll.insert_at_index(0, 'B')  # append('B')
@@ -105,7 +105,7 @@ class LinkedListTest(unittest.TestCase):
             ll.insert_at_index(5, 'X')  # index too high
         with self.assertRaises(ValueError):
             ll.insert_at_index(-1, 'Y')  # index too low
-
+    # #
     def test_append(self):
         ll = LinkedList()
         ll.append('A')
@@ -120,7 +120,7 @@ class LinkedListTest(unittest.TestCase):
         assert ll.head.data == 'A'  # unchanged
         assert ll.tail.data == 'C'  # new tail
         assert ll.size == 3
-
+    #
     def test_prepend(self):
         ll = LinkedList()
         ll.prepend('C')
@@ -135,7 +135,7 @@ class LinkedListTest(unittest.TestCase):
         assert ll.head.data == 'A'  # new head
         assert ll.tail.data == 'C'  # unchanged
         assert ll.size == 3
-
+    #
     def test_find(self):
         ll = LinkedList(['A', 'B', 'C'])
         assert ll.find(lambda item: item == 'B') == 'B'
