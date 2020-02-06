@@ -66,6 +66,7 @@ class ArrayStack(object):
     def __init__(self, iterable=None):
         """Initialize this stack and push the given items, if any."""
         # Initialize a new list (dynamic array) to store the items
+        print("Array self__init__", self)
         self.list = list()
         if iterable is not None:
             for item in iterable:
@@ -79,10 +80,12 @@ class ArrayStack(object):
     def is_empty(self):
         """Return True if this stack is empty, or False otherwise."""
         # TODO: Check if empty
+        return self.list.is_empty()
 
     def length(self):
         """Return the number of items in this stack."""
         # TODO: Count number of items
+        return self.list.length()
 
     def push(self, item):
         """Insert the given item on the top of this stack.
@@ -110,5 +113,5 @@ print("is_empty", Stack.is_empty())
 Stack.pop()
 print(Stack.length())
 print("peek", Stack.peek())
-# print("Stack.list", Stack.list)
-# Stack = ArrayStack
+print("Stack.list", Stack.list)
+# Stack = ArrayStack(['A', 'B', 'C', 'R'])
