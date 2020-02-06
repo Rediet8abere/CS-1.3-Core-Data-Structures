@@ -17,8 +17,8 @@ def contains(text, pattern):
                 if index == len(pattern):
                     return True
             elif index != 0:
+                i -= (index - 1)
                 index = 0
-                # i += 1
             else:
                 i += 1
         else:
@@ -48,6 +48,7 @@ def find_index(text, pattern):
                 if index == len(pattern):
                     return i-len(pattern)
             elif index != 0:
+                i -= (index - 1)
                 index = 0
             else:
                 i += 1
@@ -64,7 +65,7 @@ def find_all_indexes(text, pattern):
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
     # Implement find_all_indexes here (iteratively and/or recursively)
-
+    print("len", len(text))
     indexes = []
     if len(pattern) == 0:
         for i in range(len(text)):
@@ -78,11 +79,11 @@ def find_all_indexes(text, pattern):
             i += 1
             if index == len(pattern):
                 indexes.append(i-len(pattern))
-                index = 0
                 if len(pattern) != 1:
-                    i -= 1
-
+                    i -= (index - 1)
+                index = 0
         elif index != 0:
+            i -= (index - 1)
             index = 0
         else:
             i += 1
