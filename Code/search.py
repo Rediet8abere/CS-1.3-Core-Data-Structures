@@ -1,7 +1,9 @@
 #!python
 
 def linear_search(array, item):
-    """return the first index of item in array or None if item is not found"""
+    """return the first index of item in array or None if item is not found
+        Time-complexity: Best Case: o(1) item could be the first element
+                         Worst Case: 0(n) item could be at the middle or end of array """
     # implement linear_search_iterative and linear_search_recursive below, then
     # change this to call your implementation to verify it passes all tests
     return linear_search_iterative(array, item)
@@ -27,9 +29,11 @@ def linear_search_recursive(array, item, index=0):
 
 
 def binary_search(array, item):
-    """return the index of item in sorted array or None if item is not found"""
-    print("in here")
-
+    """return the index of item in sorted array or None if item is not found
+    Time-complexity: Best Case: o(1) item could be the middle element
+                     Worst Case: 0(log n) after n iterations of reducing the array by half
+                     the length of array will be 1  2^i = len(array), i-iterations
+                     log 2^i = log n ==> i = log n, n-len(array) therefore we have to iterate log(n) times """
 
 
     # implement binary_search_iterative and binary_search_recursive below, then
