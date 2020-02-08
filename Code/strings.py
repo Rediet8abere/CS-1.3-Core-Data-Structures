@@ -5,6 +5,9 @@ class StringMan:
 
 
     def contains(self, text, pattern):
+        """Time-Space Complexity:
+            Best Case: O(1) if pattern is an empty string we know an empty strings occur in a text
+            Worst Case: O(n) we have to iterate through n number of text to check if a pattern exists"""
         if len(pattern) == 0:
             return True
         self.indexes = []
@@ -12,6 +15,9 @@ class StringMan:
         return self.indexes != []
 
     def find_index(self, text, pattern):
+        """Time-Space Complexity:
+            Best Case: O(1) if pattern is an empty string we know an empty strings occur in a text at the first index
+            Worst Case: O(n) we have to iterate through n number of text to check if a pattern exists"""
         if len(pattern) == 0:
             return 0
         self.indexes = []
@@ -19,10 +25,11 @@ class StringMan:
         if len(self.indexes) >= 1:
             return self.indexes[0]
         else:
-            print("self.indexes", self.indexes)
             return None
 
     def find_all_indexes(self, text, pattern):
+        """Time-Space Complexity:
+            Worst Case: O(n) we have to iterate through n number of text to check if a pattern exists or doesn't exist"""
         if len(pattern) == 0:
             for i in range(len(text)):
                 self.indexes.append(i)
@@ -53,7 +60,6 @@ def test_string_algorithms(text, pattern):
     print('contains({!r}, {!r}) => {}'.format(text, pattern, check.contains(text, pattern)))
     print('find_index({!r}, {!r}) => {}'.format(text, pattern, check.find_index(text, pattern)))
     print('find_all_indexes({!r}, {!r}) => {}'.format(text, pattern, check.find_all_indexes(text, pattern)))
-
 
 
 def main():
