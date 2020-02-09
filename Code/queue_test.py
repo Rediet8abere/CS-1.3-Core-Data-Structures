@@ -17,7 +17,7 @@ class QueueTest(unittest.TestCase):
         assert q.front() == 'A'
         assert q.length() == 3
         assert q.is_empty() is False
-
+    #
     def test_length(self):
         q = Queue()
         assert q.length() == 0
@@ -29,7 +29,7 @@ class QueueTest(unittest.TestCase):
         assert q.length() == 1
         q.dequeue()
         assert q.length() == 0
-
+    #
     def test_enqueue(self):
         q = Queue()
         q.enqueue('A')
@@ -42,7 +42,7 @@ class QueueTest(unittest.TestCase):
         assert q.front() == 'A'
         assert q.length() == 3
         assert q.is_empty() is False
-
+    #
     def test_front(self):
         q = Queue()
         assert q.front() is None
@@ -54,7 +54,7 @@ class QueueTest(unittest.TestCase):
         assert q.front() == 'B'
         q.dequeue()
         assert q.front() is None
-
+    #
     def test_dequeue(self):
         q = Queue(['A', 'B', 'C'])
         assert q.dequeue() == 'A'

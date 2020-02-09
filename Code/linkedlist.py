@@ -64,13 +64,17 @@ class LinkedList(object):
         node_count = 0
         # Start at the head node
         node = self.head
+
         # Loop until the node is None, which is one node too far past the tail
         while node is not None:
             # Count one for this node
             node_count += 1
             # Skip to the next node
+            print("node", node)
             node = node.next
+            print("node next", node)
         # Now node_count contains the number of nodes
+        print("node_count", node_count)
         return node_count
 
     def get_at_index(self, index):
@@ -191,7 +195,7 @@ class LinkedList(object):
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
         Best case running time: O(1) under what conditions? if item is in head node or near head node
-        Worst case running time: O(1) under what conditions? if we have to traverse through nodes to find the item """
+        Worst case running time: O(n) under what conditions? if we have to traverse through nodes to find the item """
         # Start at the head node
         node = self.head
         # Keep track of the node before the one containing the given item
