@@ -5,7 +5,7 @@ from linkedlist import LinkedList
 
 # Implement LinkedQueue below, then change the assignment at the bottom
 # to use this Queue implementation to verify it passes all tests
-class Queue(object):
+class LinkedQueue(object):
 
     def __init__(self, iterable=None):
         """Initialize this queue and enqueue the given items, if any."""
@@ -34,9 +34,7 @@ class Queue(object):
         Running time: O(1) – Why? we can access the last node
         without traversing the linkedlist using the tail node"""
         # TODO: Insert given item
-        print("enqueueing", self.list)
         self.list.append(item)
-        print("enqueueing", self.list)
 
     def front(self):
         """Return the item at the front of this queue without removing it,
@@ -63,7 +61,7 @@ class Queue(object):
 
 # Implement ArrayQueue below, then change the assignment at the bottom
 # to use this Queue implementation to verify it passes all tests
-class Queue(object):
+class ArrayQueue(object):
 
     def __init__(self, iterable=None):
         """Initialize this queue and enqueue the given items, if any."""
@@ -120,12 +118,13 @@ class Queue(object):
 
 # Implement LinkedQueue and ArrayQueue above, then change the assignment below
 # to use each of your Queue implementations to verify they each pass all tests
-q = Queue(['A', 'B', 'C', 'D'])
-q.enqueue('E')
-print("length", q.length())
-print("front", q.front())
-print("delete head", q.dequeue())
-print("list", q.list)
-print("front", q.front())
-print("is empty", q.is_empty())
+Queue = ArrayQueue
+Queue = LinkedQueue
+# q.enqueue('E')
+# print("length", q.length())
+# print("front", q.front())
+# print("delete head", q.dequeue())
+# print("list", q.list)
+# print("front", q.front())
+# print("is empty", q.is_empty())
 # Queue = ArrayQueue
