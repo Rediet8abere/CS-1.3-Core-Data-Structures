@@ -41,6 +41,7 @@ def decode(digits, base):
             number = digits
     elif isinstance(float(digits), float) == True:
         x = float(digits)
+        # get the fraction part and  the last index of digits minus the length of the integer
         frac += str(round(x-int(x), (len(digits)-1) - len(str(int(x)))))
         number = str(int(float(digits)))
 

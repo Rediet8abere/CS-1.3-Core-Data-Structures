@@ -25,8 +25,13 @@ class HashTable(object):
 
     def load_factor(self):
         """Return the load factor, the ratio of number of entries to buckets.
-        Best and worst case running time: ??? under what conditions? [TODO]"""
+        Best and worst case running time: Worst case is O(n) under what conditions? we have to loop through the object n times"""
         # TODO: Calculate load factor
+        sum = 0
+        for i in range(len(self.buckets)):
+            sum += self.buckets[i].size
+        return sum/len(self.buckets)
+
         # return ...
 
     def keys(self):
@@ -41,7 +46,8 @@ class HashTable(object):
 
     def values(self):
         """Return a list of all values in this hash table.
-        Best and worst case running time: ??? under what conditions? [TODO]"""
+        Best and worst case running time: WorstCase --> O(n^2) under what conditions? we have to loop through the bucket
+        and loop through key-value pair to append all values"""
         # Collect all values in each of the buckets
         all_values = []
         for bucket in self.buckets:
@@ -51,7 +57,9 @@ class HashTable(object):
 
     def items(self):
         """Return a list of all entries (key-value pairs) in this hash table.
-        Best and worst case running time: ??? under what conditions? [TODO]"""
+        Best and worst case running time: BestCase --> O(n) if our key-value pair is stored in the head node
+        WrostCase --> O(n^2) under what conditions? we have to loop through all buckets n times and traverse through
+        the linked list until we get to None """
         # Collect all pairs of key-value entries in each of the buckets
         all_items = []
         for bucket in self.buckets:
@@ -60,7 +68,8 @@ class HashTable(object):
 
     def length(self):
         """Return the number of key-value entries by traversing its buckets.
-        Best and worst case running time: ??? under what conditions? [TODO]"""
+        Best and worst case running time: WorstCase O(n^2) under what conditions? we have to loop through the list of
+        buckets and traverse through linked list to get the length of buckets. """
         # Count number of key-value entries in each of the buckets
         item_count = 0
         for bucket in self.buckets:
@@ -71,8 +80,8 @@ class HashTable(object):
 
     def contains(self, key):
         """Return True if this hash table contains the given key, or False.
-        Best case running time: ??? under what conditions? [TODO]
-        Worst case running time: ??? under what conditions? [TODO]"""
+        Best case running time: O(1) under what conditions? If key is in headNode or near headNode
+        Worst case running time: O(n) under what conditions? If key is in the middle or the end of linkedlist """
         # Find the bucket the given key belongs in
         index = self._bucket_index(key)
         bucket = self.buckets[index]
@@ -82,8 +91,8 @@ class HashTable(object):
 
     def get(self, key):
         """Return the value associated with the given key, or raise KeyError.
-        Best case running time: ??? under what conditions? [TODO]
-        Worst case running time: ??? under what conditions? [TODO]"""
+        Best case running time: O(1) under what conditions? If key is in headNode or near headNode
+        Worst case running time: O(n) under what conditions? If key is in the middle or the end of linkedlist """
         # Find the bucket the given key belongs in
         index = self._bucket_index(key)
         bucket = self.buckets[index]
@@ -99,8 +108,8 @@ class HashTable(object):
 
     def set(self, key, value):
         """Insert or update the given key with its associated value.
-        Best case running time: ??? under what conditions? [TODO]
-        Worst case running time: ??? under what conditions? [TODO]"""
+        Best case running time: O(1) under what conditions? If key is in headNode or near headNode
+        Worst case running time: O(n) under what conditions? If key is in the middle or the end of linkedlist """
         # Find the bucket the given key belongs in
         index = self._bucket_index(key)
         bucket = self.buckets[index]
@@ -110,11 +119,15 @@ class HashTable(object):
         if entry is not None:  # Found
             # In this case, the given key's value is being updated
             # Remove the old key-value entry from the bucket first
+            self.size -= 1
             bucket.delete(entry)
         # Insert the new key-value entry into the bucket in either case
         bucket.append((key, value))
+
         # TODO: Check if the load factor exceeds a threshold such as 0.75
-        # ...
+        if self.load_factor() > 0.75:
+            new_size = self._resize()
+        self.size += 1
         # TODO: If so, automatically resize to reduce the load factor
         # ...
 
@@ -130,6 +143,7 @@ class HashTable(object):
         if entry is not None:  # Found
             # Remove the key-value entry from the bucket
             bucket.delete(entry)
+            self.size -= 1
         else:  # Not found
             raise KeyError('Key not found: {}'.format(key))
 
@@ -146,9 +160,15 @@ class HashTable(object):
         elif new_size is 0:
             new_size = len(self.buckets) / 2  # Half size
         # TODO: Get a list to temporarily hold all current key-value entries
-        # ...
+        old_bucket = []
+        for i in range(len(self.buckets)):
+            for j in range(self.buckets[i].size):
+                old_bucket.append(self.buckets[i].get_at_index(j))
         # TODO: Create a new list of new_size total empty linked list buckets
-        # ...
+        self.buckets = [LinkedList() for i in range(new_size)]
+        for i in range(len(old_bucket)):
+            self.size -= 1
+            self.set(old_bucket[i][0], old_bucket[i][1])
         # TODO: Insert each key-value entry into the new list of buckets,
         # which will rehash them into a new bucket index based on the new size
         # ...

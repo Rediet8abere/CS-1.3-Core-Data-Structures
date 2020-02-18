@@ -70,11 +70,8 @@ class LinkedList(object):
             # Count one for this node
             node_count += 1
             # Skip to the next node
-            print("node", node)
             node = node.next
-            print("node next", node)
         # Now node_count contains the number of nodes
-        print("node_count", node_count)
         return node_count
 
     def get_at_index(self, index):
@@ -122,8 +119,9 @@ class LinkedList(object):
 
     def append(self, item):
         """Insert the given item at the tail of this linked list.
-        Best and worst case running time: O(n) under what conditions?
-        we have to traverse through the linkedlist to get to the last node"""
+        Best and worst case running time: O(1) under what conditions?
+        since we have access to the tail node we don't have to traverse
+        through the linked list to get to the last node"""
         # Create a new node to hold the given item
         new_node = Node(item)
         # Check if this linked list is empty

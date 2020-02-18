@@ -6,8 +6,8 @@ def linear_search(array, item):
                          Worst Case: 0(n) item could be at the middle or end of array """
     # implement linear_search_iterative and linear_search_recursive below, then
     # change this to call your implementation to verify it passes all tests
-    return linear_search_iterative(array, item)
-    # return linear_search_recursive(array, item)
+    # return linear_search_iterative(array, item)
+    return linear_search_recursive(array, item)
 
 
 def linear_search_iterative(array, item):
@@ -68,12 +68,25 @@ def binary_search_recursive(array, item, left, right):
     low = left
     high = right
     mid = (low + high) //2
+    print("array", array)
+
+    print("low", low)
+    print(array[low])
+    print("high", high)
+    print(array[high])
+    print("item", item)
+    # 1
+    #
+    if low > high:
+        return None
 
     if array[mid] > item:
+        print("greater")
         high = mid - 1
         mid = (low + high) //2
         return binary_search_recursive(array, item, left=low, right=high)
     elif array[mid] < item:
+        print("lessthan")
         low = mid + 1
         mid = (low + high) //2
         return binary_search_recursive(array, item, left=low, right=high)
@@ -83,15 +96,15 @@ def binary_search_recursive(array, item, left, right):
     # once implemented, change binary_search to call binary_search_recursive
     # to verify that your recursive implementation passes all tests
 
-# def main():
-#     num = [89, 2, 4, 5, 34, 56, 78, 90, 3]
-#     result = binary_search(num, 5)
-#     # result2 = binary_search(num, 2)
-#     print("result", result)
-#     # print("result2", result2)
-#
-#
-#
-#
-# if __name__ == '__main__':
-#     main()
+def main():
+    num = [89, 2, 4, 5, 34, 56, 78, 90, 3]
+    result = binary_search(num, 5)
+    # result2 = binary_search(num, 2)
+    print("result", result)
+    # print("result2", result2)
+
+
+
+
+if __name__ == '__main__':
+    main()
