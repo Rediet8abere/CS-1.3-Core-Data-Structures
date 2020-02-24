@@ -70,8 +70,6 @@ class BinarySearchTree(object):
             return self.root.height()
         return 0
 
-
-
     def contains(self, item):
         """Return True if this binary search tree contains the given item.
         TODO: Best case running time: log(n) under what conditions? If tree is balanced
@@ -298,14 +296,20 @@ class BinarySearchTree(object):
     def _traverse_in_order_recursive(self, node, visit):
         """Traverse this binary tree with recursive in-order traversal (DFS).
         Start at the given node and visit each node with the given function.
-        TODO: Running time: ??? Why and under what conditions?
-        TODO: Memory usage: ??? Why and under what conditions?"""
-        # TODO: Traverse left subtree, if it exists
-        # ...
-        # TODO: Visit this node's data with given function
-        # ...
-        # TODO: Traverse right subtree, if it exists
-        # ...
+        TODO: Running time: O(n) Why and under what conditions? we have to
+        traverse all the nodes to add them to item list
+        TODO: Memory usage: O(h) Why and under what conditions? where h is
+        the height of the tree and space required is proportional to the height
+        of the tree which can be equal to the number of nodes in the tree in the worst case"""
+        if node:
+
+            # TODO: Traverse left subtree, if it exists
+            self._traverse_in_order_recursive(node.left, visit)
+            # TODO: Visit this node's data with given function
+            visit(node.data)
+            # TODO: Traverse right subtree, if it exists
+
+            self._traverse_in_order_recursive(node.right, visit)
 
     def _traverse_in_order_iterative(self, node, visit):
         """Traverse this binary tree with iterative in-order traversal (DFS).
@@ -336,12 +340,8 @@ class BinarySearchTree(object):
             # TODO: Visit this node's data with given function
             visit(node.data)
             # TODO: Traverse left subtree, if it exists
-            print("node", node)
-            print("node.left", node.left)
             self._traverse_pre_order_recursive(node.left, visit)
             # TODO: Traverse right subtree, if it exists
-            print("node", node)
-            print("node.right", node.right)
 
             self._traverse_pre_order_recursive(node.right, visit)
 
@@ -364,14 +364,20 @@ class BinarySearchTree(object):
     def _traverse_post_order_recursive(self, node, visit):
         """Traverse this binary tree with recursive post-order traversal (DFS).
         Start at the given node and visit each node with the given function.
-        TODO: Running time: ??? Why and under what conditions?
-        TODO: Memory usage: ??? Why and under what conditions?"""
-        # TODO: Traverse left subtree, if it exists
-        # ...
-        # TODO: Traverse right subtree, if it exists
-        # ...
-        # TODO: Visit this node's data with given function
-        # ...
+        TODO: Running time: O(n) Why and under what conditions? we have to
+        traverse all the nodes to add them to item list
+        TODO: Memory usage: O(h) Why and under what conditions? where h is
+        the height of the tree and space required is proportional to the height
+        of the tree which can be equal to the number of nodes in the tree in the worst case"""
+        if node:
+            # TODO: Traverse left subtree, if it exists
+            self._traverse_post_order_recursive(node.left, visit)
+            # TODO: Traverse right subtree, if it exists
+            self._traverse_post_order_recursive(node.right, visit)
+            # TODO: Visit this node's data with given function
+            visit(node.data)
+
+
 
     def _traverse_post_order_iterative(self, node, visit):
         """Traverse this binary tree with iterative post-order traversal (DFS).
@@ -436,18 +442,18 @@ def test_binary_search_tree():
 
 
 
-    print('tree: {}'.format(tree))
-    print('root: {}'.format(tree.root))
-    print('root right: {}'.format(tree.root.right))
-    print('root left: {}'.format(tree.root.left))
-    print('root right right: {}'.format(tree.root.right.right))
-    print('root right left: {}'.format(tree.root.right.left))
-    print('root left left: {}'.format(tree.root.left.left))
-    print('root left right: {}'.format(tree.root.left.right))
-    print('root right right right: {}'.format(tree.root.right.right.right))
-    print('root right right left: {}'.format(tree.root.right.right.left))
-    print('root left left left: {}'.format(tree.root.left.left.left))
-    print('root left left right: {}'.format(tree.root.left.left.right))
+    # print('tree: {}'.format(tree))
+    # print('root: {}'.format(tree.root))
+    # print('root right: {}'.format(tree.root.right))
+    # print('root left: {}'.format(tree.root.left))
+    # print('root right right: {}'.format(tree.root.right.right))
+    # print('root right left: {}'.format(tree.root.right.left))
+    # print('root left left: {}'.format(tree.root.left.left))
+    # print('root left right: {}'.format(tree.root.left.right))
+    # print('root right right right: {}'.format(tree.root.right.right.right))
+    # print('root right right left: {}'.format(tree.root.right.right.left))
+    # print('root left left left: {}'.format(tree.root.left.left.left))
+    # print('root left left right: {}'.format(tree.root.left.left.right))
 
     print("height in tree", tree.height())
 
@@ -461,10 +467,10 @@ def test_binary_search_tree():
     # # del_item = tree.delete(7)
     # print("7 Removeed", tree.search(7))
 
-    # print('\nTraversing items:')
-    # print('items in-order:    {}'.format(tree.items_in_order()))
-    # print('items pre-order:   {}'.format(tree.items_pre_order()))
-    # print('items post-order:  {}'.format(tree.items_post_order()))
+    print('\nTraversing items:')
+    print('items in-order:    {}'.format(tree.items_in_order()))
+    print('items pre-order:   {}'.format(tree.items_pre_order()))
+    print('items post-order:  {}'.format(tree.items_post_order()))
     # print('items level-order: {}'.format(tree.items_level_order()))
 
 
