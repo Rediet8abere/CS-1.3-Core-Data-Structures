@@ -1,5 +1,5 @@
 #!python
-
+from queue import ArrayQueue
 
 class BinaryTreeNode(object):
 
@@ -36,6 +36,8 @@ class BinaryTreeNode(object):
             return 1 + max(self.right.height(), self.left.height())
         elif self.right:
             return 1 + self.right.height()
+        elif self.left:
+            return 1 + self.left.height()
         else:
             return 0
 
@@ -247,6 +249,7 @@ class BinarySearchTree(object):
         parent = self._find_parent_node_iterative(item)
         node = self._find_node_iterative(item)
         # node is only child
+        print("deleting: ", item)
         if node.left == None and node.right == None:
             if node.data < parent.data:
                 parent.left = None
@@ -401,19 +404,22 @@ class BinarySearchTree(object):
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
         # TODO: Create queue to store nodes not yet traversed in level-order
-        # queue = ...
+        q = ArrayQueue()
         # TODO: Enqueue given starting node
-        # ...
+        q.enqueue(start_node)
         # TODO: Loop until queue is empty
-        # while ...:
+        while q.length() != 0:
             # TODO: Dequeue node at front of queue
-            # node = ...
+            q.front()
+            node = q.dequeue()
             # TODO: Visit this node's data with given function
-            # ...
+            visit(node.data)
             # TODO: Enqueue this node's left child, if it exists
-            # ...
+            if node.left:
+                q.enqueue(node.left)
             # TODO: Enqueue this node's right child, if it exists
-            # ...
+            if node.right:
+                q.enqueue(node.right)
 
 
 def test_binary_search_tree():
@@ -471,7 +477,7 @@ def test_binary_search_tree():
     print('items in-order:    {}'.format(tree.items_in_order()))
     print('items pre-order:   {}'.format(tree.items_pre_order()))
     print('items post-order:  {}'.format(tree.items_post_order()))
-    # print('items level-order: {}'.format(tree.items_level_order()))
+    print('items level-order: {}'.format(tree.items_level_order()))
 
 
 if __name__ == '__main__':
