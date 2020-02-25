@@ -32,7 +32,6 @@ class HashTable(object):
             sum += self.buckets[i].size
         return sum/len(self.buckets)
 
-        # return ...
 
     def keys(self):
         """Return a list of all keys in this hash table.
@@ -133,8 +132,8 @@ class HashTable(object):
 
     def delete(self, key):
         """Delete the given key and its associated value, or raise KeyError.
-        Best case running time: ??? under what conditions? [TODO]
-        Worst case running time: ??? under what conditions? [TODO]"""
+        Best case running time: O(1) under what conditions? if item is in head node or near head node
+        Worst case running time: O(n) under what conditions? if we have to traverse through nodes to find the item [TODO]"""
         # Find the bucket the given key belongs in
         index = self._bucket_index(key)
         bucket = self.buckets[index]
@@ -151,8 +150,10 @@ class HashTable(object):
         """Resize this hash table's buckets and rehash all key-value entries.
         Should be called automatically when load factor exceeds a threshold
         such as 0.75 after an insertion (when set is called with a new key).
-        Best and worst case running time: o(n) under what conditions? [TODO]
-        Best and worst case space usage: ??? what uses this memory? [TODO]"""
+        Best and worst case running time: O(n) under what conditions? if the
+        entries are chained in the same linkedlist
+        Best and worst case space usage: O(n) what uses this memory? we have
+        to create n space in memory to store the key value entrires"""
         # If unspecified, choose new size dynamically based on current size
         if new_size is None:
             new_size = len(self.buckets) * 2  # Double size
@@ -161,17 +162,24 @@ class HashTable(object):
             new_size = len(self.buckets) / 2  # Half size
         # TODO: Get a list to temporarily hold all current key-value entries
         old_bucket = []
+        # go through the bucket
         for i in range(len(self.buckets)):
+            print("bucket[i]", self.buckets[i])
+            # go through the linkedlist and get all entrires and store it in old_bucket
             for j in range(self.buckets[i].size):
+                print("getting index", self.buckets[i].get_at_index(j))
                 old_bucket.append(self.buckets[i].get_at_index(j))
         # TODO: Create a new list of new_size total empty linked list buckets
+        print("old_bucket", old_bucket)
         self.buckets = [LinkedList() for i in range(new_size)]
+        # pass the key value pair to set so that the key can be rehashed and assign to a new index
         for i in range(len(old_bucket)):
             self.size -= 1
             self.set(old_bucket[i][0], old_bucket[i][1])
+
         # TODO: Insert each key-value entry into the new list of buckets,
         # which will rehash them into a new bucket index based on the new size
-        # ...
+
 
 
 def test_hash_table():
@@ -189,34 +197,37 @@ def test_hash_table():
     print('load_factor: ' + str(ht.load_factor()))
     ht.set('X', 10)
     print('set(X, 10): ' + str(ht))
+    print('load_factor: ' + str(ht.load_factor()))
     ht.set('L', 50)  # Should trigger resize
     print('set(L, 50): ' + str(ht))
+    print('load_factor: ' + str(ht.load_factor()))
     print('size: ' + str(ht.size))
     print('length: ' + str(ht.length()))
     print('buckets: ' + str(len(ht.buckets)))
     print('load_factor: ' + str(ht.load_factor()))
+    print(ht.__repr__())
 
-    print('Getting entries:')
-    print('get(I): ' + str(ht.get('I')))
-    print('get(V): ' + str(ht.get('V')))
-    print('get(X): ' + str(ht.get('X')))
-    print('get(L): ' + str(ht.get('L')))
-    print('contains(X): ' + str(ht.contains('X')))
-    print('contains(Z): ' + str(ht.contains('Z')))
+    # print('Getting entries:')
+    # print('get(I): ' + str(ht.get('I')))
+    # print('get(V): ' + str(ht.get('V')))
+    # print('get(X): ' + str(ht.get('X')))
+    # print('get(L): ' + str(ht.get('L')))
+    # print('contains(X): ' + str(ht.contains('X')))
+    # print('contains(Z): ' + str(ht.contains('Z')))
 
-    print('Deleting entries:')
-    ht.delete('I')
-    print('delete(I): ' + str(ht))
-    ht.delete('V')
-    print('delete(V): ' + str(ht))
-    ht.delete('X')
-    print('delete(X): ' + str(ht))
-    ht.delete('L')
-    print('delete(L): ' + str(ht))
-    print('contains(X): ' + str(ht.contains('X')))
-    print('size: ' + str(ht.size))
-    print('length: ' + str(ht.length()))
-    print('buckets: ' + str(len(ht.buckets)))
+    # print('Deleting entries:')
+    # ht.delete('I')
+    # print('delete(I): ' + str(ht))
+    # ht.delete('V')
+    # print('delete(V): ' + str(ht))
+    # ht.delete('X')
+    # print('delete(X): ' + str(ht))
+    # ht.delete('L')
+    # print('delete(L): ' + str(ht))
+    # print('contains(X): ' + str(ht.contains('X')))
+    # print('size: ' + str(ht.size))
+    # print('length: ' + str(ht.length()))
+    # print('buckets: ' + str(len(ht.buckets)))
     print('load_factor: ' + str(ht.load_factor()))
 
 
