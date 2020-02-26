@@ -24,6 +24,9 @@ class HashTable(object):
         return hash(key) % len(self.buckets)
 
     def load_factor(self):
+        """Return the load factor, the ratio of number of entries to buckets.
+        Best and worst case running time: Worst case is O(n) under what conditions? we have to loop through the object n times"""
+        # TODO: Calculate load factor
         sum = 0
         for i in range(len(self.buckets)):
             sum += self.buckets[i].size
@@ -144,27 +147,37 @@ class HashTable(object):
             raise KeyError('Key not found: {}'.format(key))
 
     def _resize(self, new_size=None):
+        """Resize this hash table's buckets and rehash all key-value entries.
+        Should be called automatically when load factor exceeds a threshold
+        such as 0.75 after an insertion (when set is called with a new key).
+        Best and worst case running time: O(n) under what conditions? if the
+        entries are chained in the same linkedlist
+        Best and worst case space usage: O(n) what uses this memory? we have
+        to create n space in memory to store the key value entrires"""
         # If unspecified, choose new size dynamically based on current size
         if new_size is None:
             new_size = len(self.buckets) * 2  # Double size
         # Option to reduce size if buckets are sparsely filled (low load factor)
         elif new_size is 0:
             new_size = len(self.buckets) / 2  # Half size
-        # Get a list to temporarily hold all current key-value entries
+        # TODO: Get a list to temporarily hold all current key-value entries
         old_bucket = []
         # go through the bucket
         for i in range(len(self.buckets)):
+            print("bucket[i]", self.buckets[i])
             # go through the linkedlist and get all entrires and store it in old_bucket
             for j in range(self.buckets[i].size):
+                print("getting index", self.buckets[i].get_at_index(j))
                 old_bucket.append(self.buckets[i].get_at_index(j))
-        # Create a new list of new_size total empty linked list buckets
+        # TODO: Create a new list of new_size total empty linked list buckets
+        print("old_bucket", old_bucket)
         self.buckets = [LinkedList() for i in range(new_size)]
         # pass the key value pair to set so that the key can be rehashed and assign to a new index
         for i in range(len(old_bucket)):
             self.size -= 1
             self.set(old_bucket[i][0], old_bucket[i][1])
 
-        # Insert each key-value entry into the new list of buckets,
+        # TODO: Insert each key-value entry into the new list of buckets,
         # which will rehash them into a new bucket index based on the new size
 
 
