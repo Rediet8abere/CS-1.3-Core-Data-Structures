@@ -235,8 +235,12 @@ class BinarySearchTree(object):
 
     def delete(self, item):
         """Remove given item from this tree, if present, or raise ValueError.
-        TODO: Best case running time: ??? under what conditions?
-        TODO: Worst case running time: ??? under what conditions?"""
+        TODO: Best case running time: O(h) under what conditions? It does not
+        visit the node twice and if the tree is balanced
+        TODO: Worst case running time: O(n) under what conditions? if the tree
+        is not balanced, we will have a singly linked list which means losing
+        the advantage of ignoring halve of the elements in every step
+        """
         # TODO: Use helper methods and break this algorithm down into 3 cases
         if self.search(item):
             return self._delete(item)
@@ -285,8 +289,6 @@ class BinarySearchTree(object):
                 else:
                     delnodeparent.left = None
 
-
-
     def items_in_order(self):
         """Return an in-order list of all items in this binary search tree."""
         items = []
@@ -315,10 +317,13 @@ class BinarySearchTree(object):
             self._traverse_in_order_recursive(node.right, visit)
 
     def _traverse_in_order_iterative(self, node, visit):
-        """Traverse this binary tree with iterative in-order traversal (DFS).
+        """Traverse this binary tree with recursive in-order traversal (DFS).
         Start at the given node and visit each node with the given function.
-        TODO: Running time: ??? Why and under what conditions?
-        TODO: Memory usage: ??? Why and under what conditions?"""
+        TODO: Running time: O(n) Why and under what conditions? we have to
+        traverse all the nodes to add them to item list
+        TODO: Memory usage: O(h) Why and under what conditions? where h is
+        the height of the tree and space required is proportional to the height
+        of the tree which can be equal to the number of nodes in the tree in the worst case"""
         # TODO: Traverse in-order without using recursion (stretch challenge)
 
     def items_pre_order(self):
@@ -389,6 +394,7 @@ class BinarySearchTree(object):
         TODO: Memory usage: ??? Why and under what conditions?"""
         # TODO: Traverse post-order without using recursion (stretch challenge)
 
+
     def items_level_order(self):
         """Return a level-order list of all items in this binary search tree."""
         items = []
@@ -401,8 +407,11 @@ class BinarySearchTree(object):
     def _traverse_level_order_iterative(self, start_node, visit):
         """Traverse this binary tree with iterative level-order traversal (BFS).
         Start at the given node and visit each node with the given function.
-        TODO: Running time: ??? Why and under what conditions?
-        TODO: Memory usage: ??? Why and under what conditions?"""
+        TODO: Running time: on each node we perform 3 operations, assumming
+        each operations on each node take O(1) it takes 3 * O(n) for the tree to be traversed
+        TODO: Memory usage: O(2^h) would be  the worst running time if we have
+        two children for every parent, but that might not be the case. Considering
+        that a parent might have one child O(n) would be a better estimate."""
         # TODO: Create queue to store nodes not yet traversed in level-order
         q = ArrayQueue()
         # TODO: Enqueue given starting node

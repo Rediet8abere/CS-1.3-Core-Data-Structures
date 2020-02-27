@@ -68,14 +68,8 @@ def binary_search_recursive(array, item, left, right):
     low = left
     high = right
     mid = (low + high) //2
-    print("array", array)
 
-    print("low", low)
-    print(array[low])
-    print("high", high)
-    print(array[high])
-    print("item", item)
-    # 1
+
     #
     if low > high:
         return None
