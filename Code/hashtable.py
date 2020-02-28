@@ -166,13 +166,13 @@ class HashTable(object):
         old_bucket = []
         # go through the bucket
         for i in range(len(self.buckets)):
-            print("bucket[i]", self.buckets[i])
+            # print("bucket[i]", self.buckets[i])
             # go through the linkedlist and get all entrires and store it in old_bucket
             for j in range(self.buckets[i].size):
-                print("getting index", self.buckets[i].get_at_index(j))
+                # print("getting index", self.buckets[i].get_at_index(j))
                 old_bucket.append(self.buckets[i].get_at_index(j))
         # TODO: Create a new list of new_size total empty linked list buckets
-        print("old_bucket", old_bucket)
+        # print("old_bucket", old_bucket)
         self.buckets = [LinkedList() for i in range(new_size)]
         # pass the key value pair to set so that the key can be rehashed and assign to a new index
         for i in range(len(old_bucket)):

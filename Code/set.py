@@ -12,15 +12,6 @@ class Set(object):
             for item in elements:
                 self.add(item)
 
-    def __str__(self):
-        """Return a formatted string representation of this set."""
-        items = ['{!r}'.format(key) for key in self.items()]
-        return '{' + ', '.join(items) + '}'
-
-    def __repr__(self):
-        """Return a string representation of this set."""
-        return 'Set({!r})'.format(self.items())
-
 
     def contains(self, element):
         """ return a boolean indicating whether element is in this set.
@@ -29,12 +20,7 @@ class Set(object):
             Compare the behaviors of your Set class to those of the Python
             set type and Swift Set type:
         """
-        index = self.elements._bucket_index(element)
-        bucket = self.elements.buckets[index]
-        # Check if an entry with the given key exists in that bucket
-        entry = bucket.find(lambda key_value: key_value == element)
-        return entry is not None  # True or False
-
+        return self.elements.contains(element)
 
     def add(self, element):
         """add element to this set, if not present already.
@@ -43,21 +29,12 @@ class Set(object):
             Compare the behaviors of your Set class to those of the Python
             set type and Swift Set type:
         """
-        # Find the bucket the given key belongs in
-        index = self.elements._bucket_index(element)
-        bucket = self.elements.buckets[index]
-        print('bucket', bucket, index, element)
-        # # Find the entry with the given key in that bucket, if one exists
-        # # Check if an entry with the given key exists in that bucket
-        # entry = bucket.find(lambda key_value: key_value[0] == key)
-        if not self.contains(element):  # Found
-            # Insert the new element into the bucket
-            bucket.append(element)
+        if not self.contains(element):
+            self.elements.set(element, None)
             self.size += 1
-        # print('bucket', bucket)
 
     def items(self):
-         return self.elements.items()
+         return self.elements.keys()
 
     def remove(self, element):
         """remove element from this set, if present, or else raise KeyError.
@@ -66,16 +43,9 @@ class Set(object):
             Compare the behaviors of your Set class to those of the Python
             set type and Swift Set type:
         """
-        index = self.elements._bucket_index(element)
-        bucket = self.elements.buckets[index]
-        # Find the entry with the given key in that bucket, if one exists
-        entry = bucket.find(lambda key_value: key_value == element)
-        if entry is not None:  # Found
-            # Remove the key-value entry from the bucket
-            bucket.delete(entry)
-            self.size -= 1
-        else:  # Not found
-            raise KeyError('Key not found: {}'.format(key))
+        self.elements.delete(element)
+        print("self.elements", self.elements)
+        self.size -= 1
 
 
     def union(self, other_set):
@@ -85,15 +55,13 @@ class Set(object):
             Compare the behaviors of your Set class to those of the Python
             set type and Swift Set type:
         """
-        print(self)
-        print(other_set)
-        # key_list = other_set.keys()
-        # for k in key_list:
-        #     print(self.elements.contains(k))
-        #     if not self.elements.contains(k):
-        #         self.add(k)
-        # print("In union", self.elements)
-        # return self.elements
+        other_set_key = other_set.elements.keys()
+        print('other_set_key', other_set_key)
+        for ele in other_set_key:
+            if not self.contains(ele):
+                self.add(ele)
+        return self.elements
+
 
     def intersection(self, other_set):
         """return a new set that is the intersection of this set and other_set.
@@ -102,18 +70,12 @@ class Set(object):
             Compare the behaviors of your Set class to those of the Python
             set type and Swift Set type:
         """
-
-        # key_list = other_set.keys()
-        # print('key_list', key_list)
-        # intersect = []
-        # for k in key_list:
-        #     if self.elements.contains(k):
-        #         intersect.append(k)
-        # print('in intersection', intersect)
-        # set = Set(intersect)
-        # return set.elements
-
-        # return self.elements
+        other_set_key = other_set.elements.keys()
+        interset = []
+        for ele in other_set_key:
+            if self.contains(ele):
+                interset.append(ele)
+        return Set(interset).elements
 
 
 
@@ -125,6 +87,11 @@ class Set(object):
             set type and Swift Set type:
         """
 
+        for ele in self.intersection(other_set).keys():
+            self.remove(ele)
+        return self.elements
+
+
     def is_subset(self, other_set):
         """ return a boolean indicating whether other_set is a subset of this set.
             Running time:
@@ -132,25 +99,15 @@ class Set(object):
             Compare the behaviors of your Set class to those of the Python
             set type and Swift Set type:
         """
-set = Set(['Becoming', 'Lean In', 'Whistling Vivaldi'])
-# print('set', set, set.size)
-# print('contains', set.contains('A')) #should return false
-# print('contains', set.contains('Becoming')) #should return true
-# set.remove('Becoming')
-# print('remove', set.size) #should return true
-# print('set', set)
-
-# print('adding outliers', set.add('Outliers'))
-# print(set.elements)
-# print(set.contains('xx'))
-# set.remove('Lean In')
-other_set = {'Talent code', 'Outliers', 'Talking to strangers'}
-set.union(other_set)
-print('other_set', other_set)
-print('self.size', set.size)
-
-# set = Set(['Nightingale', 'The originals', 'Whistling Vivaldi', 'Becoming', 'Lean In'])
-# print("sesond set", set.elements)
-#
-# print("merging", set.union(other_set))
-# print('intersexting', set.intersection(other_set))
+        other_set_key = other_set.elements.keys()
+        count = 0
+        for ele in other_set_key:
+            if self.contains(ele):
+                count += 1
+        return count == other_set.size
+set = Set(['Talent code', 'Outliers', 'Talking to strangers', 'Idea man'])
+other_set = Set(['Beloved', 'Nightingale', 'Mistress of the game', 'Idea man'])
+# print('union --->', set.union(other_set))
+# print('intersection - -->', set.intersection(other_set))
+# print('difference ----->', set.difference(other_set))
+print('is_subset ----->', set.is_subset(other_set))

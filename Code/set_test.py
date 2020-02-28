@@ -8,11 +8,11 @@ class SetTest(unittest.TestCase):
         assert set.size == 0
 
     def test_contains(self):
-        set = Set(['Master of the Game'])
+        set = Set(['Master of the Game', 'After the darkness'])
         assert set.contains('Master of the Game') == True
+        assert set.contains('After the darkness') == True
+        assert set.contains('Dertogada') == False
 
-        set.remove('Master of the Game') #element will be removed from set
-        assert set.contains('Master of the Game') == False
 
     def test_add(self):
         set = Set()
@@ -47,8 +47,29 @@ class SetTest(unittest.TestCase):
         set = Set(['Talent code', 'Outliers', 'Talking to strangers', 'Idea man'])
         other_set = Set(['Beloved', 'Nightingale', 'Mistress of the game', 'Idea man'])
 
-        set.union(other_set.elements) is {'Talent code': 'Talent code', 'Outliers':'Outliers', 'Talking to strangers':'Talking to strangers',
-        'Beloved': 'Beloved', 'Nightingale':'Nightingale', 'Mistress of the game':'Mistress of the game'}
+        set.union(other_set) == {'Outliers': None, 'Idea man': None, 'Nightingale': None, 'Mistress of the game': None,
+        'Beloved': None, 'Talking to strangers': None, 'Talent code': None}
+
+    def test_intersection(self):
+        # Double check
+        set = Set(['Talent code', 'Outliers', 'Talking to strangers', 'Idea man'])
+        other_set = Set(['Beloved', 'Nightingale', 'Mistress of the game', 'Idea man'])
+
+        set.intersection(other_set) == {'Idea man': None}
+
+    def test_difference(self):
+        # Double check
+        set = Set(['Talent code', 'Outliers', 'Talking to strangers', 'Idea man'])
+        other_set = Set(['Beloved', 'Nightingale', 'Mistress of the game', 'Idea man'])
+
+        set.difference(other_set) == {'Outliers': None, 'Talent code': None, 'Talking to strangers': None}
+
+    def test_is_subset(self):
+        # Double check
+        set = Set(['Talent code', 'Outliers', 'Talking to strangers', 'Idea man'])
+        other_set = Set(['Beloved', 'Nightingale', 'Mistress of the game', 'Idea man'])
+
+        set.is_subset(other_set) == False
 
 if __name__ == '__main__':
     unittest.main()
