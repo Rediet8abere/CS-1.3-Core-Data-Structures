@@ -1,7 +1,7 @@
 #!python
 
 from linkedlist import LinkedList
-
+# export PYTHONHASHSEED=0
 
 class HashTable(object):
 
@@ -34,8 +34,10 @@ class HashTable(object):
 
 
     def keys(self):
-        """Return a list of all keys in this hash table.
-        Best and worst case running time: ??? under what conditions? [TODO]"""
+        """Return a list of all values in this hash table.
+        Best and worst case running time: WorstCase --> O(n^2)
+        under what conditions? we have to loop through the bucket
+        and loop through key-value pair to append all values"""
         # Collect all keys in each of the buckets
         all_keys = []
         for bucket in self.buckets:
@@ -179,6 +181,7 @@ class HashTable(object):
 
         # TODO: Insert each key-value entry into the new list of buckets,
         # which will rehash them into a new bucket index based on the new size
+
 
 
 
