@@ -15,8 +15,9 @@ class Set(object):
 
     def contains(self, element):
         """ return a boolean indicating whether element is in this set.
-            Running time:
-            Space (memory):
+            Running time: O(1) assumming the hashtable's load_factor is't too high
+            if load_factor is too high O(n)
+            Space (memory):  O(n) as the number of element grows, the memory should grow linearly
             Compare the behaviors of your Set class to those of the Python
             set type and Swift Set type:
         """
@@ -24,8 +25,9 @@ class Set(object):
 
     def add(self, element):
         """add element to this set, if not present already.
-            Running time:
-            Space (memory):
+            Running time: O(1) assumming the hashtable's load_factor is't too high
+            if load_factor is too high O(n)
+            Space (memory): O(n) as the number of element grows, the memory should grow linearly
             Compare the behaviors of your Set class to those of the Python
             set type and Swift Set type:
         """
@@ -38,8 +40,9 @@ class Set(object):
 
     def remove(self, element):
         """remove element from this set, if present, or else raise KeyError.
-            Running time:
-            Space (memory):
+            Running time: O(1) assumming the hashtable's load_factor is't too high
+            if load_factor is too high O(n)
+            Space (memory): O(n) as the number of element grows, the memory should grow linearly
             Compare the behaviors of your Set class to those of the Python
             set type and Swift Set type:
         """
@@ -50,8 +53,9 @@ class Set(object):
 
     def union(self, other_set):
         """return a new set that is the union of this set and other_set.
-            Running time:
-            Space (memory):
+            Running time: O(n^2) we have to traverse
+            through self and other_set inorder to the union
+            Space (memory): O(n) we have to create a temporary space for the other_set_keys
             Compare the behaviors of your Set class to those of the Python
             set type and Swift Set type:
         """
@@ -65,8 +69,9 @@ class Set(object):
 
     def intersection(self, other_set):
         """return a new set that is the intersection of this set and other_set.
-            Running time:
-            Space (memory):
+            Running time:  O(n^2) we have to traverse
+            through self and other_set inorder to the union
+            Space (memory): O(n) we have to create a temporary space for the other_set_keys
             Compare the behaviors of your Set class to those of the Python
             set type and Swift Set type:
         """
@@ -81,8 +86,9 @@ class Set(object):
 
     def difference(self, other_set):
         """ return a new set that is the difference of this set and other_set.
-            Running time:
-            Space (memory):
+            Running time:  O(n^2) we have to traverse
+            through self and other_set inorder to the union
+            Space (memory):O(n) we have to create a temporary space for the other_set_keys
             Compare the behaviors of your Set class to those of the Python
             set type and Swift Set type:
         """
@@ -94,8 +100,8 @@ class Set(object):
 
     def is_subset(self, other_set):
         """ return a boolean indicating whether other_set is a subset of this set.
-            Running time:
-            Space (memory):
+            Running time:  O(n^2) we have to traverse through self and other_set inorder to the union
+            Space (memory):O(n) we have to create a temporary space for the other_set_keys
             Compare the behaviors of your Set class to those of the Python
             set type and Swift Set type:
         """
