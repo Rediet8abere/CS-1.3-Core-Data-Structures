@@ -1,21 +1,20 @@
-from set import Set
-from hashtable import HashTable
+from set import HashSet
 import unittest
 
 class SetTest(unittest.TestCase):
     def test_init(self):
-        set = Set()
+        set = HashSet()
         assert set.size == 0
 
     def test_contains(self):
-        set = Set(['Master of the Game', 'After the darkness'])
+        set = HashSet(['Master of the Game', 'After the darkness'])
         assert set.contains('Master of the Game') == True
         assert set.contains('After the darkness') == True
         assert set.contains('Dertogada') == False
 
 
     def test_add(self):
-        set = Set()
+        set = HashSet()
         set.add('After the darkness')
         assert set.size == 1 # added one element
 
@@ -30,46 +29,99 @@ class SetTest(unittest.TestCase):
 
     def test_remove(self):
         # Double check
-        set = Set(['Talent code', 'Outliers', 'Talking to strangers'])
-        set.size == 3 #started with 3 elements
+        set = HashSet(['Talent code', 'Outliers', 'Talking to strangers'])
+        assert set.size == 3 #started with 3 elements
 
         set.remove('Talent code')
-        set.size == 2 #one element is removed
+        assert set.size == 2 #one element is removed
 
         set.remove('Outliers')
-        set.size == 1 #second element removed
+        assert set.size == 1 #second element removed
 
         set.remove('Talking to strangers')
-        set.size == 0 #third element removed
+        assert set.size == 0 #third element removed
 
     def test_union(self):
-        # Double check
-        set = Set(['Talent code', 'Outliers', 'Talking to strangers', 'Idea man'])
-        other_set = Set(['Beloved', 'Nightingale', 'Mistress of the game', 'Idea man'])
+        # two sets with one common element
+        set = HashSet(['Talent code', 'Outliers', 'Talking to strangers', 'Idea man'])
+        other_set = HashSet(['Beloved', 'Nightingale', 'Mistress of the game', 'Idea man'])
 
-        set.union(other_set) == {'Outliers': None, 'Idea man': None, 'Nightingale': None, 'Mistress of the game': None,
-        'Beloved': None, 'Talking to strangers': None, 'Talent code': None}
+        assert set.union(other_set).size == 7
+
+        # two sets with no common ele
+        set = HashSet(['Talent code', 'Outliers', 'Talking to strangers', 'Capital'])
+        other_set = HashSet(['Beloved', 'Nightingale', 'Mistress of the game', 'Idea man'])
+
+        assert set.union(other_set).size == 8
+
+
+        # two sets with the same element
+        set = HashSet(['Talent code', 'Outliers', 'Talking to strangers', 'Capital'])
+        other_set = HashSet(['Talent code', 'Outliers', 'Talking to strangers', 'Capital'])
+
+        assert set.union(other_set).size == 4
 
     def test_intersection(self):
-        # Double check
-        set = Set(['Talent code', 'Outliers', 'Talking to strangers', 'Idea man'])
-        other_set = Set(['Beloved', 'Nightingale', 'Mistress of the game', 'Idea man'])
+        # two sets with one common element
+        set = HashSet(['Talent code', 'Outliers', 'Talking to strangers', 'Idea man'])
+        other_set = HashSet(['Beloved', 'Nightingale', 'Mistress of the game', 'Idea man'])
 
-        set.intersection(other_set) == {'Idea man': None}
+        assert set.intersection(other_set).size == 1
+
+        # two sets with no common ele
+        set = HashSet(['Talent code', 'Outliers', 'Talking to strangers', 'Capital'])
+        other_set = HashSet(['Beloved', 'Nightingale', 'Mistress of the game', 'Idea man'])
+
+        assert set.intersection(other_set).size == 0
+
+
+        # two sets with the same element
+        set = HashSet(['Talent code', 'Outliers', 'Talking to strangers', 'Capital'])
+        other_set = HashSet(['Talent code', 'Outliers', 'Talking to strangers', 'Capital'])
+
+        assert set.intersection(other_set).size == 4
 
     def test_difference(self):
-        # Double check
-        set = Set(['Talent code', 'Outliers', 'Talking to strangers', 'Idea man'])
-        other_set = Set(['Beloved', 'Nightingale', 'Mistress of the game', 'Idea man'])
+        # two sets with one common element
+        set = HashSet(['Talent code', 'Outliers', 'Talking to strangers', 'Idea man'])
+        other_set = HashSet(['Beloved', 'Nightingale', 'Mistress of the game', 'Idea man'])
 
-        set.difference(other_set) == {'Outliers': None, 'Talent code': None, 'Talking to strangers': None}
+        assert set.difference(other_set).size == 3
 
+
+        # two sets with no common ele
+        set = HashSet(['Talent code', 'Outliers', 'Talking to strangers', 'Capital'])
+        other_set = HashSet(['Beloved', 'Nightingale', 'Mistress of the game', 'Idea man'])
+
+        assert set.difference(other_set).size == 4
+
+
+        # two sets with the same element
+        set = HashSet(['Talent code', 'Outliers', 'Talking to strangers', 'Capital'])
+        other_set = HashSet(['Talent code', 'Outliers', 'Talking to strangers', 'Capital'])
+
+        assert set.difference(other_set).size == 0
+    #
     def test_is_subset(self):
-        # Double check
-        set = Set(['Talent code', 'Outliers', 'Talking to strangers', 'Idea man'])
-        other_set = Set(['Beloved', 'Nightingale', 'Mistress of the game', 'Idea man'])
+        # two sets with one common element
+        set = HashSet(['Talent code', 'Outliers', 'Talking to strangers', 'Idea man'])
+        other_set = HashSet(['Beloved', 'Nightingale', 'Mistress of the game', 'Idea man'])
 
-        set.is_subset(other_set) == False
+        assert set.is_subset(other_set) is False #all the ele in set are not in other_set
+        # therefore expecting false
+
+        # two sets with no common ele
+        set = HashSet(['Talent code', 'Outliers', 'Talking to strangers', 'Capital'])
+        other_set = HashSet(['Beloved', 'Nightingale', 'Mistress of the game', 'Idea man'])
+
+        assert set.is_subset(other_set) is False
+
+
+        # two sets with the same element
+        set = HashSet(['Talent code', 'Outliers', 'Talking to strangers', 'Capital'])
+        other_set = HashSet(['Talent code', 'Outliers', 'Talking to strangers', 'Capital'])
+
+        assert set.is_subset(other_set) is True
 
 if __name__ == '__main__':
     unittest.main()

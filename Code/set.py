@@ -1,7 +1,7 @@
 from hashtable import HashTable
+# comment your code
 
-
-class Set(object):
+class HashSet(object):
     def __init__(self, elements=None):
         """ Initialize a new empty set structure, and add each element
             if a sequence is given. """
@@ -11,6 +11,15 @@ class Set(object):
         if elements is not None:
             for item in elements:
                 self.add(item)
+
+    def __repr__(self):
+        """Return a string representation of this set."""
+        return 'Set({!r})'.format(self.items())
+
+    def __str__(self):
+        """Return a formatted string representation of this hash table."""
+        items = ['{!r}'.format(element) for element in self.items()]
+        return '{' + ', '.join(items) + '}'
 
 
     def contains(self, element):
@@ -53,67 +62,77 @@ class Set(object):
 
     def union(self, other_set):
         """return a new set that is the union of this set and other_set.
-            Running time: O(n^2) we have to traverse
-            through self and other_set inorder to the union
+            Running time: O(n) we have to loop through other_set
             Space (memory): O(n) we have to create a temporary space for the other_set_keys
             Compare the behaviors of your Set class to those of the Python
             set type and Swift Set type:
         """
         other_set_key = other_set.elements.keys()
-        print('other_set_key', other_set_key)
+        unite = HashSet(self.elements.keys())
         for ele in other_set_key:
             if not self.contains(ele):
-                self.add(ele)
-        return self.elements
+                unite.add(ele)
+        return unite
 
 
     def intersection(self, other_set):
         """return a new set that is the intersection of this set and other_set.
-            Running time:  O(n^2) we have to traverse
-            through self and other_set inorder to the union
-            Space (memory): O(n) we have to create a temporary space for the other_set_keys
+            Running time:  O(n) we have to loop other_set inorder to the union
+            Space (memory): O(n) we have to create a space for the set that holds
+            the intersection items
             Compare the behaviors of your Set class to those of the Python
             set type and Swift Set type:
         """
         other_set_key = other_set.elements.keys()
-        interset = []
+        intersect = HashSet()
         for ele in other_set_key:
             if self.contains(ele):
-                interset.append(ele)
-        return Set(interset).elements
+                intersect.add(ele)
+        print('intersect', intersect)
+        return intersect
 
 
 
     def difference(self, other_set):
         """ return a new set that is the difference of this set and other_set.
-            Running time:  O(n^2) we have to traverse
-            through self and other_set inorder to the union
-            Space (memory):O(n) we have to create a temporary space for the other_set_keys
+            Running time:  O(n) we have to loop through self
+            Space (memory): O(n) we have to create a temporary space for the new set that
+            holds the difference
             Compare the behaviors of your Set class to those of the Python
             set type and Swift Set type:
         """
-
-        for ele in self.intersection(other_set).keys():
-            self.remove(ele)
-        return self.elements
+        differ = HashSet()
+        print('self', self)
+        print('other_set', other_set)
+        for ele in self.items():
+            if not other_set.contains(ele):
+                differ.add(ele)
+        # print('differ', type(differ))
+        #     self.remove(ele)
+        return differ
 
 
     def is_subset(self, other_set):
         """ return a boolean indicating whether other_set is a subset of this set.
-            Running time:  O(n^2) we have to traverse through self and other_set inorder to the union
-            Space (memory):O(n) we have to create a temporary space for the other_set_keys
-            Compare the behaviors of your Set class to those of the Python
-            set type and Swift Set type:
+            Running time:  O(n) we have to loop through other_set
+            Space (memory): O(1) we have to create a space for the count only
         """
+        if other_set.size > self.size:
+            return False
         other_set_key = other_set.elements.keys()
         count = 0
         for ele in other_set_key:
             if self.contains(ele):
                 count += 1
         return count == other_set.size
-set = Set(['Talent code', 'Outliers', 'Talking to strangers', 'Idea man'])
-other_set = Set(['Beloved', 'Nightingale', 'Mistress of the game', 'Idea man'])
-# print('union --->', set.union(other_set))
+
+set = HashSet(['Talent code', 'Outliers', 'Talking to strangers', 'Idea man'])
+other_set = HashSet(['Beloved', 'Nightingale', 'Mistress of the game', 'Idea man', 'laland'])
+set.add('Hello')
+print('set', set)
+print("#", str(set))
+# print("items: ", set.items())
+# print('union --->', set.union(other_set).items())
 # print('intersection - -->', set.intersection(other_set))
 # print('difference ----->', set.difference(other_set))
 print('is_subset ----->', set.is_subset(other_set))

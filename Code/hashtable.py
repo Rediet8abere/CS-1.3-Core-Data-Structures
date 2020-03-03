@@ -208,7 +208,7 @@ def test_hash_table():
     print('length: ' + str(ht.length()))
     print('buckets: ' + str(len(ht.buckets)))
     print('load_factor: ' + str(ht.load_factor()))
-    print(ht.__repr__())
+    print(str(ht))
 
     # print('Getting entries:')
     # print('get(I): ' + str(ht.get('I')))
