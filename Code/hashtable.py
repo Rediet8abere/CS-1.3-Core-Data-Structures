@@ -5,7 +5,7 @@ from linkedlist import LinkedList
 
 class HashTable(object):
 
-    def __init__(self, init_size=8):
+    def __init__(self, init_size=2):
         """Initialize this hash table with the given initial size."""
         self.buckets = [LinkedList() for i in range(init_size)]
         self.size = 0  # Number of key-value entries
@@ -27,10 +27,11 @@ class HashTable(object):
         """Return the load factor, the ratio of number of entries to buckets.
         Best and worst case running time: Worst case is O(n) under what conditions? we have to loop through the object n times"""
         # TODO: Calculate load factor
-        sum = 0
-        for i in range(len(self.buckets)):
-            sum += self.buckets[i].size
-        return sum/len(self.buckets)
+        # sum = 0
+        # for i in range(len(self.buckets)):
+        #     sum += self.buckets[i].size
+        # return sum/len(self.buckets)
+        return self.size/(len(self.buckets))
 
 
     def keys(self):
@@ -124,11 +125,13 @@ class HashTable(object):
             bucket.delete(entry)
         # Insert the new key-value entry into the bucket in either case
         bucket.append((key, value))
+        self.size += 1
 
         # TODO: Check if the load factor exceeds a threshold such as 0.75
+        print('self.load_factor()', self.size, (len(self.buckets)), self.load_factor(), key, value)
         if self.load_factor() > 0.75:
             new_size = self._resize()
-        self.size += 1
+
         # TODO: If so, automatically resize to reduce the load factor
         # ...
 
@@ -186,29 +189,38 @@ class HashTable(object):
 
 
 def test_hash_table():
-    ht = HashTable(4)
+    ht = HashTable()
     print('HashTable: ' + str(ht))
-
+    print('ht.size', ht.size)
+    print("length", len(ht.buckets))
     print('Setting entries:')
     ht.set('I', 1)
-    print('set(I, 1): ' + str(ht))
+    # print('set(I, 1): ' + str(ht))
+    print('load_factor', ht.load_factor())
+    print('ht.size', ht.size)
+    print("length", len(ht.buckets))
+    print('------------------------')
     ht.set('V', 5)
-    print('set(V, 5): ' + str(ht))
-    print('size: ' + str(ht.size))
-    print('length: ' + str(ht.length()))
-    print('buckets: ' + str(len(ht.buckets)))
-    print('load_factor: ' + str(ht.load_factor()))
-    ht.set('X', 10)
-    print('set(X, 10): ' + str(ht))
-    print('load_factor: ' + str(ht.load_factor()))
-    ht.set('L', 50)  # Should trigger resize
-    print('set(L, 50): ' + str(ht))
-    print('load_factor: ' + str(ht.load_factor()))
-    print('size: ' + str(ht.size))
-    print('length: ' + str(ht.length()))
-    print('buckets: ' + str(len(ht.buckets)))
-    print('load_factor: ' + str(ht.load_factor()))
-    print(str(ht))
+    print('ht.size', ht.size)
+    print('load_factor', ht.load_factor())
+    print("length", len(ht.buckets))
+    # print('load_factor', ht.load_factor())
+    # print('set(V, 5): ' + str(ht))
+    # print('size: ' + str(ht.size))
+    # print('length: ' + str(ht.length()))
+    # print('buckets: ' + str(len(ht.buckets)))
+    # print('load_factor: ' + str(ht.load_factor()))
+    # ht.set('X', 10)
+    # print('set(X, 10): ' + str(ht))
+    # print('load_factor: ' + str(ht.load_factor()))
+    # ht.set('L', 50)  # Should trigger resize
+    # print('set(L, 50): ' + str(ht))
+    # print('load_factor: ' + str(ht.load_factor()))
+    # print('size: ' + str(ht.size))
+    # print('length: ' + str(ht.length()))
+    # print('buckets: ' + str(len(ht.buckets)))
+    # print('load_factor: ' + str(ht.load_factor()))
+    # print(str(ht))
 
     # print('Getting entries:')
     # print('get(I): ' + str(ht.get('I')))
@@ -231,7 +243,7 @@ def test_hash_table():
     # print('size: ' + str(ht.size))
     # print('length: ' + str(ht.length()))
     # print('buckets: ' + str(len(ht.buckets)))
-    print('load_factor: ' + str(ht.load_factor()))
+    # print('load_factor: ' + str(ht.load_factor()))
 
 
 if __name__ == '__main__':

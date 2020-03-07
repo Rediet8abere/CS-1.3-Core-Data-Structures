@@ -12,7 +12,7 @@ class LinkedStack(object):
         # Initialize a new linked list to store the items
         # print("self __init__", self)
         self.list = LinkedList()
-        self.top = None
+        # self.top = self.list.head
         if iterable is not None:
             for item in iterable:
                 self.push(item)
@@ -33,31 +33,35 @@ class LinkedStack(object):
 
     def push(self, item):
         """Insert the given item on the top of this stack.
-        Running time: O(???) – Why? [TODO]"""
+        Running time: O(1) – Why? we don't have to traverse or loop to append"""
         # TODO: Push given item
-        self.list.append(item)
-        self.top = item
+        self.list.prepend(item)
+        print('self.list', self.list)
+        # self.top = item
 
     def peek(self):
         """Return the item on the top of this stack without removing it,
         or None if this stack is empty."""
         # TODO: Return top item, if any
+        print('self.is_empty()', self.is_empty())
         if self.is_empty():
             return None
-        return self.top
+        print('self.top', self.list.head.data)
+        return self.list.head.data
 
     def pop(self):
         """Remove and return the item on the top of this stack,
         or raise ValueError if this stack is empty.
-        Running time: O(???) – Why? [TODO]"""
+        Running time: O(1) – Why? we don't have to traverse or loop to remove the first item"""
         # TODO: Remove and return top item, if any
         del_top = None
         if self.is_empty():
             raise ValueError('Stack is empty')
-        self.list.delete(self.top)
-        del_top = self.top
-        if self.length()-1 >= 0:
-            self.top = self.list.get_at_index(self.length()-1)
+        del_top = self.list.head.data
+        self.list.delete(self.list.head.data)
+
+        # if self.length()-1 >= 0:
+        #     self.top = self.list.get_at_index(self.length()-1)
         return del_top
 
 
@@ -130,14 +134,17 @@ class ArrayStack(object):
 # Implement LinkedStack and ArrayStack above, then change the assignment below
 # to use each of your Stack implementations to verify they each pass all tests
 
-# Stack = LinkedStack
+Stack = LinkedStack
 # ['a', 'b', 's', 'e']
-Stack = ArrayStack
-# s.push('E')
-# print("stack list", s.list)
-# print("type", type(s.list))
-# print("pop", s.pop())
+# Stack = ArrayStack
+# print(Stack, 'Stack')
+# Stack.push('E')
+# print(Stack, 'Stack')
+# print("peek E", Stack.peek())
+# print("stack list", Stack.list)
+# print("type", type(Stack.list))
+# print("pop", Stack.pop())
 #
-# print("peek", s.peek())
-# print("len", s.length())
-# print("empty", s.is_empty())
+
+# print("len", Stack.length())
+# print("empty", Stack.is_empty())

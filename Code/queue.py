@@ -119,7 +119,8 @@ class ArrayQueue(object):
 # Implement LinkedQueue and ArrayQueue above, then change the assignment below
 # to use each of your Queue implementations to verify they each pass all tests
 Queue = ArrayQueue
-Queue = LinkedQueue
+Queue = LinkedQueue('ITNGA')
+print(Queue.front())
 # q.enqueue('E')
 # print("length", q.length())
 # print("front", q.front())

@@ -17,7 +17,7 @@ class StackTest(unittest.TestCase):
         assert s.peek() == 'C'
         assert s.length() == 3
         assert s.is_empty() is False
-    #
+
     def test_length(self):
         s = Stack()
         assert s.length() == 0
@@ -29,7 +29,7 @@ class StackTest(unittest.TestCase):
         assert s.length() == 1
         s.pop()
         assert s.length() == 0
-    #
+
     def test_push(self):
         s = Stack()
         s.push('A')

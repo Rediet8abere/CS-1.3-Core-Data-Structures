@@ -80,11 +80,32 @@ class LinkedList(object):
         Best case running time: O(1) under what conditions? if index is out of range
         Worst case running time: O(n) under what conditions? we retrive the item by accessing it's index
         from a list built by traversing the LinkedList"""
+
+        # If you use self.items()[index] in get_index_at() function, the run time will always be as self.items()
+        # which is O(n). but you can reduce it to O(k) where k is the given index. instead of calling the items
+        # function in the get_index_at() function iterate the linked list until given index and return node.
+        # data at that position
+
         # Check if the given index is out of range and if so raise an error
         if not (0 <= index < self.size):
             raise ValueError('List index out of range: {}'.format(index))
         # Find the node at the given index and return its data
-        return self.items()[index]
+        # print('index', index, self.items()[index])
+        count = 0
+        # Start at the head node
+        node = self.head  # Constant time to assign a variable reference
+        # Loop until the node is None, which is one node too far past the tail
+        while node is not None:  # Up to n iterations if we don't exit early
+            # Check if this node's data satisfies the given quality function
+            if count == index:  # Constant time to call quality function
+                # We found data satisfying the quality function, so exit early
+                return node.data  # Constant time to return data
+            # Skip to the next node
+            node = node.next  # Constant time to reassign a variable
+            count += 1
+        # We never found data satisfying quality, but have to return something
+        return None  # Constant time to return None
+        # return self.items()[index]
 
     def insert_at_index(self, index, item):
         """Insert the given item at the given index in this linked list, or
@@ -257,6 +278,7 @@ def test_linked_list():
     print('Getting items by index:')
     for index in range(ll.size):
         item = ll.get_at_index(index)
+        print('item', item)
         # print('get_at_index({}): {!r}'.format(index, item))
     # print(ll.insert_at_index(2,'D'))
     # print(ll.replace('L','K'))

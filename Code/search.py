@@ -39,7 +39,7 @@ def binary_search(array, item):
     # implement binary_search_iterative and binary_search_recursive below, then
     # change this to call your implementation to verify it passes all tests
     # return binary_search_iterative(array, item)
-    return binary_search_recursive(sorted(array), item, 0, len(array)-1)
+    return binary_search_recursive(array, item, 0, len(array)-1)
 
 
 def binary_search_iterative(array, item):
@@ -69,30 +69,32 @@ def binary_search_recursive(array, item, left, right):
     high = right
     mid = (low + high) //2
 
-
-    #
     if low > high:
+        print('done', array[mid])
         return None
 
     if array[mid] > item:
-        print("greater")
+        print('array[mid] greater', array[mid], item)
+        print(type(array[mid]), type(item))
+        print(array[mid] == item)
         high = mid - 1
         mid = (low + high) //2
         return binary_search_recursive(array, item, left=low, right=high)
     elif array[mid] < item:
-        print("lessthan")
+        print("array[mid] lessthan", array[mid], item)
         low = mid + 1
         mid = (low + high) //2
         return binary_search_recursive(array, item, left=low, right=high)
     elif item == array[mid]:
+        print('item', item, array[mid], item)
         return mid
 
     # once implemented, change binary_search to call binary_search_recursive
     # to verify that your recursive implementation passes all tests
 
 def main():
-    num = [89, 2, 4, 5, 34, 56, 78, 90, 3]
-    result = binary_search(num, 5)
+    num = ['redi', 'dire', 'deir', 'ride', 'ired', 'ider', 'hello']
+    result = binary_search(num, 'ride')
     # result2 = binary_search(num, 2)
     print("result", result)
     # print("result2", result2)
