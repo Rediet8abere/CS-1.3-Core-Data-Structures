@@ -16,10 +16,22 @@
 import search
 
 
+def permutations(s):
+    # base case
+    if len(s) <= 1:
+        return [s]
+    else:
+        perms = []
+        #
+        for e in permutations(s[:-1]):
+            for i in range(len(e)+1):
+                perms.append(e[:i] + s[-1] + e[i:])
+        return perms
+
+
 def read_words():
     "Read words file"
     file = open("/usr/share/dict/words")
-
     # instantiate a set object
     set_content = set()
     while True:
@@ -29,68 +41,83 @@ def read_words():
             break
         # keep adding word to the set
         set_content.add(word)
-
-    # print(set_content)
-    if 'God' in set_content:
-        print('God')
-
-    # loop through the list of words in content
-    # to find the ordSum for each word
-    # ordSum_words = {}
-    # for word in content:
-    #     # print(word)
-    #     ordSum = sum(ord(letter) for letter in word.strip())
-        # print('ordSum', ordSum)
-
-        # a dictonary to hold the ascii sum of a word as a key
-        # and all the words with the same ascii sum in a set as a value
-
-        # we check if the ordSum exists as a key
-        # words = ordSum_words.get(ordSum, None)
-        # if words != None:
-        #     # print('word')
-        #     # if so we add a word in a set that has the same ordSum
-        #     words.add(word.strip())
-        # else:
-        #     # print(words_set)
-        #     ordSum_words[ordSum] = set(word.strip())
-
-    # print(ordSum_words)
-    # print('dictionary')
-    #
-    # file.close()
-    # return content
-
-dictionary_words = read_words()
-#
-# def calculate_asciiValue(word):
-#     asciiValue = 0
-#     for letter in word:
-#         asciiValue += ord(letter)
-#     print('asciiValue', asciiValue)
-#
-# calculate_asciiValue('redi')
+    return set_content
 
 
 
 
+def solve_word_jumble(letters, circles, final):
+    set_content = read_words()
+    letters = [letter.lower() for letter in letters]
+    rearrange_list = []
+    # to get the word from list of words
+    for letter in letters:
+        # In this loop word is the rearrangemnt of the word passed
+        for word in permutations(letter):
+            # O(1) look up for item in set
+            # print('set_content', set_content)
+            if word in set_content:
+                print(word)
+                rearrange_list.append(word)
+                break
+            # else:
+            #     print('not found', word)
 
-# print('words_rearranged', words_rearranged)
-# logical_word = []
-# for word in words_rearranged:
-# s = 'A'
-# for dict_word in dictionary_words:
-#     print(dict_word)
-#     print(dict_word, s, dict_word == s)
-#     print(ord(s))
-#     print(ord(dict_word))
-#
-#     break
-        # if word == dict_word:
-    # print(word)
-    # print(word)
-    # break
-    # print(search.binary_search(dictionary_words, word))
-    # if search.binary_search(dictionary_words, word) != None:
-    #     logical_word.append(word)
-# print('logical_word', logical_word)
+    letters_wanted = ''
+    for i in range(len(circles)):
+        for j in range(len(circles[i])):
+            # print('circles[i][j]', circles[i][j])
+            if circles[i][j] == 'O':
+                letters_wanted += rearrange_list[i][j]
+    print('letters_wanted', letters_wanted)
+
+    final_arrangemnt = []
+    k = 0
+    for i in range(len(final)):
+        final_arrangemnt.append(letters_wanted[k:len(final[i])+k])
+        print(len(final[i]), final_arrangemnt)
+        k += len(final[i])
+    print('final_arrangemnt', final_arrangemnt)
+
+    return final_arrangemnt
+
+letters = ['LAISA', 'LAURR', 'BUREEK', 'PROUOT']
+circles = ['_OOO_', 'O_O__', 'OO____', '__O_OO']
+final = ['OOOOO', 'OOOOO']
+solve_word_jumble(letters, circles, final)
+
+
+
+
+
+
+
+
+
+
+
+# def string_permutations(possible_chars, popped=None, possible_comb = [], index = 0):
+#     possible_comb = possible_comb
+#     string_list = possible_chars
+#     print('possible_chars', possible_chars)
+#     chars_set = []
+#     index = 0
+#     for i in range(len(string_list)):
+#         # bc a 1
+#         popped = possible_chars[index] #c
+#         possible_chars.remove(popped) #b
+#         # possible_chars = possible_chars[index+1:] #c
+#         chars_set.append(popped) #ac
+#         # index -= 1
+#         print('possible_chars', possible_chars, popped)
+#     print('chars_set', chars_set)
+#     print('possible_chars', possible_chars)
+#     possible_comb.append(chars_set)
+#     print('possible_comb', possible_comb)
+#     # index += 1
+#     print('index', index, string_list)
+#     # print(string_list[index+1:], string_list[index])
+#     # base case
+#     if possible_chars == []:
+#         return string_permutations(string_list[index+1:], string_list[index], possible_comb=possible_comb, index=index)
+# string_permutations(list('ABC'))
